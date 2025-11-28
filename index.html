@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Titel wird via JavaScript übersetzt -->
+    <title data-i18n="page_title">NOGUEM NGNOTUE - Professionelles Portfolio (Dokumentenmanagement)</title>
+    <!-- Lade Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lade Lucide Icons für professionelle Symbole -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Konfigurieren Sie Tailwind für die Verwendung der Inter-Schriftart */
+        :root {
+            --tw-font-sans: 'Inter', sans-serif;
+        }
+        body {
+            font-family: var(--tw-font-sans);
+            background-color: #f7f9fc; /* Sehr helles Grau */
+        }
+        /* Custom-Styling für den Hover-Effekt der Projekte */
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1), 0 8px 15px -8px rgba(0, 0, 0, 0.04);
+        }
+        /* Animation für den Hero-Titel */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out;
+        }
+
+        /* Dropdown Styling */
+        .language-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            z-index: 10;
+            min-width: 160px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+            transform: translateY(5px);
+            pointer-events: none; /* Verhindert Interaktion, wenn es unsichtbar ist */
+        }
+        /* Zustand, wenn die JS-Funktion die Klasse 'open' hinzufügt */
+        .language-dropdown.open .dropdown-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Erlaubt Interaktion */
+        }
+        /* Die Klasse .no-wrap wird nur noch als Fallback gelassen, aber aus dem Titel entfernt */
+        .no-wrap {
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navigationsleiste -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Name -->
+                <a href="#home" class="text-2xl font-extrabold text-indigo-600 rounded-lg p-1 transition duration-300">
+                    NOGUEM NGNOTUE
+                </a>
+                
+                <!-- Desktop Navigation und Sprachauswahl -->
+                <nav class="flex items-center space-x-8 text-sm font-medium">
+                    <a href="#skills" data-i18n="nav_skills" class="text-gray-600 hover:text-indigo-600 transition duration-150">Kompetenzen</a>
+                    <a href="#projects" data-i18n="nav_projects" class="text-gray-600 hover:text-indigo-600 transition duration-150">Referenzen</a>
+                    <a href="#contact" data-i18n="nav_contact" class="text-gray-600 hover:text-indigo-600 transition duration-150">Kontakt</a>
+                    
+                    <!-- Sprachumschalter als Dropdown mit Flaggen (Jetzt mit JS-Toggle) -->
+                    <div class="language-dropdown relative" id="lang-dropdown-container">
+                        <button id="current-language-btn" onclick="toggleDropdown(event)" class="flex items-center space-x-2 p-2 rounded-lg text-gray-700 bg-gray-100 hover:bg-gray-200 transition duration-150">
+                            <!-- Aktuelle Flagge und Text wird per JS gesetzt -->
+                            <span id="current-flag">🇩🇪</span>
+                            <span id="current-text">Deutsch</span>
+                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+
+                        <div id="dropdown-menu" class="dropdown-menu mt-2 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <a href="#" onclick="setLanguage('de'); return false;" class="lang-item flex items-center p-3 hover:bg-indigo-50 rounded-t-lg transition duration-150" data-lang="de">
+                                <span class="mr-3 text-xl">🇩🇪</span> <span data-i18n="lang_de">Deutsch</span>
+                            </a>
+                            <a href="#" onclick="setLanguage('en'); return false;" class="lang-item flex items-center p-3 hover:bg-indigo-50 transition duration-150" data-lang="en">
+                                <span class="mr-3 text-xl">🇬🇧</span> <span data-i18n="lang_en">Englisch</span>
+                            </a>
+                            <a href="#" onclick="setLanguage('fr'); return false;" class="lang-item flex items-center p-3 hover:bg-indigo-50 rounded-b-lg transition duration-150" data-lang="fr">
+                                <span class="mr-3 text-xl">🇫🇷</span> <span data-i18n="lang_fr">Französisch</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- 1. Hero / Startseite -->
+        <section id="home" class="bg-white pt-24 pb-32">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+                
+                <!-- Textinhalt -->
+                <div class="md:w-2/3 md:mr-12 text-center md:text-left mb-12 md:mb-0">
+                    <p data-i18n="hero_greeting" class="text-lg text-indigo-600 font-semibold mb-2 animate-fade-in-down">Hallo, ich bin NOGUEM NGNOTUE.</p>
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-6 animate-fade-in-down">
+                        <span class="block" data-i18n="hero_expert">Ihr Experte für</span>
+                        <!-- 'hero_title' enthält jetzt einen <br> Tag, um den Umbruch zu erzwingen -->
+                        <span class="block text-indigo-600" data-i18n="hero_title">Dokumentenmanagement (DMS).</span>
+                    </h1>
+                    <p data-i18n="hero_desc" class="text-xl text-gray-600 mb-8 max-w-lg mx-auto md:mx-0">
+                        Ich optimiere die gesamte Informations-Governance: von der Erfassung und Klassifizierung bis zur revisionssicheren Archivierung.
+                    </p>
+                    <a href="#projects" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg transition duration-300 transform hover:scale-105">
+                        <span data-i18n="hero_button">Meine Referenzen ansehen</span> <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                    </a>
+                </div>
+
+                <!-- Bild oder Placeholder (Responsiv) -->
+                <div class="md:w-1/3 flex justify-end">
+                    <img src="IMG_4873.jpg" 
+                         alt="Aktuelles Profilbild von NOGUEM NGNOTUE"
+                         class="rounded-full shadow-2xl object-cover w-64 h-64 md:w-80 md:h-80 mx-auto md:mx-0 md:ml-auto md:-mr-4 transform transition duration-500 hover:rotate-3 hover:shadow-indigo-400/50">
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Fähigkeiten / Skills (Angepasst für Dokumentenmanagement) -->
+        <section id="skills" class="py-24 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 data-i18n="skills_title" class="text-4xl font-bold text-center text-gray-900 mb-12">Meine Kompetenzen</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Skill Card 1: Compliance & Governance -->
+                    <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-indigo-500 transform transition duration-300 hover:shadow-2xl">
+                        <i data-lucide="check-circle-2" class="w-8 h-8 text-indigo-600 mb-4"></i>
+                        <h3 data-i18n="skill1_title" class="text-xl font-semibold mb-3">Compliance & Governance</h3>
+                        <p data-i18n="skill1_desc" class="text-gray-600 text-sm">Einhaltung von GoBD, DSGVO und branchenspezifischen Archivierungsvorschriften (z.B. GDPdU).</p>
+                    </div>
+
+                    <!-- Skill Card 2: Metadaten & Klassifizierung -->
+                    <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-indigo-500 transform transition duration-300 hover:shadow-2xl">
+                        <i data-lucide="tag" class="w-8 h-8 text-indigo-600 mb-4"></i>
+                        <h3 data-i18n="skill2_title" class="text-xl font-semibold mb-3">Metadaten & Klassifizierung</h3>
+                        <p data-i18n="skill2_desc" class="text-gray-600 text-sm">Entwicklung von Metadatenmodellen und Taxonomien zur effizienten Ablage und schnellen Suche von Dokumenten.</p>
+                    </div>
+
+                    <!-- Skill Card 3: DMS/ECM-Systeme -->
+                    <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-indigo-500 transform transition duration-300 hover:shadow-2xl">
+                        <i data-lucide="folder-open" class="w-8 h-8 text-indigo-600 mb-4"></i>
+                        <h3 data-i18n="skill3_title" class="text-xl font-semibold mb-3">DMS/ECM-Systeme</h3>
+                        <p data-i18n="skill3_desc" class="text-gray-600 text-sm">Konzeption, Einführung und Administration gängiger DMS-Lösungen (z.B. SharePoint, OpenText, ELO, d.velop).</p>
+                    </div>
+
+                    <!-- Skill Card 4: Digitale Archivierung -->
+                    <div class="bg-white p-6 rounded-xl shadow-xl border-t-4 border-indigo-500 transform transition duration-300 hover:shadow-2xl">
+                        <i data-lucide="archive" class="w-8 h-8 text-indigo-600 mb-4"></i>
+                        <h3 data-i18n="skill4_title" class="text-xl font-semibold mb-3">Digitale Archivierung</h3>
+                        <p data-i18n="skill4_desc" class="text-gray-600 text-sm">Definition von Aufbewahrungsfristen (Retention Policies) und Umsetzung revisionssicherer Langzeitarchivierung.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Projekte (Angepasst für Dokumentenmanagement) -->
+        <section id="projects" class="py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 data-i18n="projects_title" class="text-4xl font-bold text-center text-gray-900 mb-12">Ausgewählte Referenzen & Projekte</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    
+                    <!-- Projekt 1: Einführung DMS -->
+                    <div class="project-card bg-white rounded-xl shadow-2xl overflow-hidden transition duration-500">
+                        <div class="p-6">
+                            <h3 data-i18n="proj1_title" class="text-2xl font-semibold text-indigo-600 mb-2">Einführung eines neuen DMS</h3>
+                            <p data-i18n="proj1_subtitle" class="text-sm text-gray-500 mb-4">Konzeption & Rollout</p>
+                            <p data-i18n="proj1_desc" class="text-gray-700 mb-6">Leitung der Migration von über 500.000 Dokumenten in ein neues DMS-System, inklusive Schulung von 200 Mitarbeitern.</p>
+                            <a href="#" class="text-indigo-500 hover:text-indigo-700 font-medium flex items-center">
+                                <span data-i18n="proj_button">Projekterfolg ansehen</span> <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projekt 2: Workflow-Optimierung -->
+                    <div class="project-card bg-white rounded-xl shadow-2xl overflow-hidden transition duration-500">
+                        <div class="p-6">
+                            <h3 data-i18n="proj2_title" class="text-2xl font-semibold text-indigo-600 mb-2">Rechnungsverarbeitung</h3>
+                            <p data-i18n="proj2_subtitle" class="text-sm text-gray-500 mb-4">Automatisierte Workflows & OCR</p>
+                            <p data-i18n="proj2_desc" class="text-gray-700 mb-6">Implementierung eines digitalen Posteingangs mit OCR-Erfassung zur automatischen Klassifizierung und Freigabe von Eingangsrechnungen.</p>
+                            <a href="#" class="text-indigo-500 hover:text-indigo-700 font-medium flex items-center">
+                                <span data-i18n="proj_button">Projekterfolg ansehen</span> <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Projekt 3: Archivierungsstrategie -->
+                    <div class="project-card bg-white rounded-xl shadow-2xl overflow-hidden transition duration-500">
+                        <div class="p-6">
+                            <h3 data-i18n="proj3_title" class="text-2xl font-semibold text-indigo-600 mb-2">Revisionssichere Archivierung</h3>
+                            <p data-i18n="proj3_subtitle" class="text-sm text-gray-500 mb-4">GoBD & Compliance</p>
+                            <p data-i18n="proj3_desc" class="text-gray-700 mb-6">Entwicklung und Durchsetzung einer unternehmensweiten Archivierungsstrategie, die alle gesetzlichen Anforderungen erfüllt.</p>
+                            <a href="#" class="text-indigo-500 hover:text-indigo-700 font-medium flex items-center">
+                                <span data-i18n="proj_button">Projekterfolg ansehen</span> <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Kontakt (Aktualisiert mit Credly und Coursera) -->
+        <section id="contact" class="py-24 bg-gray-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+                <h2 data-i18n="contact_title" class="text-4xl font-bold text-center mb-4">Interessiert an einer Zusammenarbeit?</h2>
+                <p data-i18n="contact_desc" class="text-xl text-center text-gray-400 mb-12">Kontaktieren Sie mich, um Ihr nächstes Dokumentenmanagement-Projekt zu besprechen.</p>
+
+                <!-- Grid für die Kontaktkarten (wird auf md zu 4 Spalten) -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+                    
+                    <!-- E-Mail Card -->
+                    <div class="bg-gray-700 p-6 rounded-xl shadow-2xl text-center transition duration-300 hover:bg-indigo-600">
+                        <i data-lucide="mail" class="w-8 h-8 mx-auto mb-3 text-indigo-400"></i>
+                        <p data-i18n="contact_email_title" class="text-sm text-gray-300">Senden Sie mir eine E-Mail</p>
+                        <a href="mailto:ngnotue.noguem@outlook.de" class="text-base font-semibold whitespace-nowrap block">ngnotue.noguem@outlook.de</a>
+                    </div>
+                    
+                    <!-- LinkedIn Card -->
+                    <div class="bg-gray-700 p-6 rounded-xl shadow-2xl text-center transition duration-300 hover:bg-indigo-600">
+                        <i data-lucide="linkedin" class="w-8 h-8 mx-auto mb-3 text-indigo-400"></i>
+                        <p data-i18n="contact_linkedin_title" class="text-sm text-gray-300">LinkedIn Profil</p>
+                        <a href="https://www.linkedin.com/in/noguem-ngnotue-9ba14a9a/" target="_blank" class="text-base font-semibold">LinkedIn</a>
+                    </div>
+
+                    <!-- Credly Card (Zertifikate) -->
+                    <div class="bg-gray-700 p-6 rounded-xl shadow-2xl text-center transition duration-300 hover:bg-indigo-600">
+                        <i data-lucide="award" class="w-8 h-8 mx-auto mb-3 text-indigo-400"></i>
+                        <p data-i18n="contact_credly_title" class="text-sm text-gray-300">Meine Zertifikate</p>
+                        <a href="https://www.credly.com/users/ngnotue-noguem" target="_blank" class="text-base font-semibold">Credly</a>
+                    </div>
+                    
+                    <!-- Coursera Card (Lernnachweise) -->
+                    <div class="bg-gray-700 p-6 rounded-xl shadow-2xl text-center transition duration-300 hover:bg-indigo-600">
+                        <i data-lucide="graduation-cap" class="w-8 h-8 mx-auto mb-3 text-indigo-400"></i>
+                        <p data-i18n="contact_coursera_title" class="text-sm text-gray-300">Lernnachweise</p>
+                        <a href="https://www.coursera.org/user/e9983940314d3203580c4bac41d3cf98" target="_blank" class="text-base font-semibold">Coursera</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <span data-i18n="footer_copyright">&copy; 2025 NOGUEM NGNOTUE. Erstellt mit &hearts; und Tailwind CSS.</span>
+        </div>
+    </footer>
+
+    <!-- Initialisierung der Icons und der Mehrsprachigkeit -->
+    <script>
+        // 1. Übersetzungen
+        const translations = {
+            'page_title': {
+                'de': 'NOGUEM NGNOTUE - Professionelles Portfolio (Dokumentenmanagement)',
+                'en': 'NOGUEM NGNOTUE - Professional Portfolio (Document Management)',
+                'fr': 'NOGUEM NGNOTUE - Portfolio Professionnel (Gestion Documentaire)'
+            },
+            // Navigationsleiste
+            'nav_skills': { 'de': 'Kompetenzen', 'en': 'Skills', 'fr': 'Compétences' },
+            'nav_projects': { 'de': 'Referenzen', 'en': 'References', 'fr': 'Références' },
+            'nav_contact': { 'de': 'Kontakt', 'en': 'Contact', 'fr': 'Contact' },
+            'lang_de': { 'de': 'Deutsch', 'en': 'German', 'fr': 'Allemand' },
+            'lang_en': { 'de': 'Englisch', 'en': 'English', 'fr': 'Anglais' },
+            'lang_fr': { 'de': 'Französisch', 'en': 'French', 'fr': 'Français' },
+
+            // Hero-Sektion
+            'hero_greeting': { 'de': 'Hallo, ich bin NOGUEM NGNOTUE.', 'en': 'Hello, I am NOGUEM NGNOTUE.', 'fr': 'Bonjour, je suis NOGUEM NGNOTUE.' },
+            'hero_expert': { 'de': 'Ihr Experte für', 'en': 'Your Expert for', 'fr': 'Votre Expert en' },
+            // NEU: Verwendung von <br> für den Zeilenumbruch zwischen Begriff und Abkürzung
+            'hero_title': { 
+                'de': 'Dokumentenmanagement<br>(DMS)', 
+                'en': 'Document Management<br>(DMS)', 
+                'fr': 'Gestion Documentaire<br>(GED)' 
+            },
+            'hero_desc': { 
+                'de': 'Ich optimiere die gesamte Informations-Governance: von der Erfassung und Klassifizierung bis zur revisionssicheren Archivierung.',
+                'en': 'I optimize the entire information governance: from capture and classification to audit-proof<br> archiving.',
+                'fr': "J'optimise l'ensemble de la gouvernance de l'information: de la capture et classification à l'archivage à l'épreuve des audits."
+            },
+            'hero_button': { 'de': 'Meine Referenzen ansehen', 'en': 'View My References', 'fr': 'Voir mes références' },
+
+            // Kompetenzen-Sektion
+            'skills_title': { 'de': 'Meine Kompetenzen', 'en': 'My Skills', 'fr': 'Mes Compétences' },
+            'skill1_title': { 'de': 'Compliance & Governance', 'en': 'Compliance & Governance', 'fr': 'Conformité & Gouvernance' },
+            'skill1_desc': { 
+                'de': 'Einhaltung von GoBD, DSGVO und branchenspezifischen Archivierungsvorschriften (z.B. GDPdU).',
+                'en': 'Compliance with GoBD, GDPR, and industry-specific archiving regulations (e.g., GDPdU).',
+                'fr': 'Conformité GoBD, RGPD et réglementations d\'archivage spécifiques au secteur (par ex. GDPdU).'
+            },
+            'skill2_title': { 'de': 'Metadaten & Klassifizierung', 'en': 'Metadata & Classification', 'fr': 'Métadonnées & Classification' },
+            'skill2_desc': { 
+                'de': 'Entwicklung von Metadatenmodellen und Taxonomien zur effizienten Ablage und schnellen Suche von Dokumenten.',
+                'en': 'Development of metadata models and taxonomies for efficient storage and quick retrieval of documents.',
+                'fr': 'Développement de modèles de métadonnées et de taxonomies pour un stockage efficace et une recherche rapide des documents.'
+            },
+            'skill3_title': { 'de': 'DMS/ECM-Systeme', 'en': 'DMS/ECM Systems', 'fr': 'Systèmes DMS/ECM' },
+            'skill3_desc': { 
+                'de': 'Konzeption, Einführung und Administration gängiger DMS-Lösungen (z.B. SharePoint, OpenText, ELO, d.velop).',
+                'en': 'Conception, introduction, and administration of common DMS solutions (e.g., SharePoint, OpenText, ELO, d.velop).',
+                'fr': 'Conception, introduction et administration de solutions DMS courantes (par ex. SharePoint, OpenText, ELO, d.velop).'
+            },
+            'skill4_title': { 'de': 'Digitale Archivierung', 'en': 'Digital Archiving', 'fr': 'Archivage Numérique' },
+            'skill4_desc': { 
+                'de': 'Definition von Aufbewahrungsfristen (Retention Policies) und Umsetzung revisionssicherer Langzeitarchivierung.',
+                'en': 'Definition of retention periods (Retention Policies) and implementation of audit-proof long-term archiving.',
+                'fr': "Définition des délais de conservation (Retention Policies) et mise en œuvre de l'archivage à long terme à l'épreuve des audits."
+            },
+
+            // Projekte-Sektion
+            'projects_title': { 'de': 'Ausgewählte Referenzen & Projekte', 'en': 'Selected References & Projects', 'fr': 'Références et Projets Sélectionnés' },
+            'proj1_title': { 'de': 'Einführung eines neuen DMS', 'en': 'Introduction of a new DMS', 'fr': 'Introduction d\'un nouveau DMS' },
+            'proj1_subtitle': { 'de': 'Konzeption & Rollout', 'en': 'Conception & Rollout', 'fr': 'Conception & Déploiement' },
+            'proj1_desc': { 
+                'de': 'Leitung der Migration von über 500.000 Dokumenten in ein neues DMS-System, inklusive Schulung von Mitarbeitern.',
+                'en': 'Management of the migration of over 500,000 documents into a new DMS system, including employees training.',
+                'fr': "Gestion de la migration de plus de 500 000 documents vers un nouveau système DMS, incluant la formation d'employés."
+            },
+            'proj2_title': { 'de': 'Rechnungsverarbeitung', 'en': 'Invoice Processing', 'fr': 'Traitement des Factures' },
+            'proj2_subtitle': { 'de': 'Automatisierte Workflows & OCR', 'en': 'Automated Workflows & OCR', 'fr': 'Flux de Travail Automatisés & OCR' },
+            'proj2_desc': { 
+                'de': 'Implementierung eines digitalen Posteingangs mit OCR-Erfassung zur automatischen Klassifizierung und Freigabe von Eingangsrechnungen.',
+                'en': 'Implementation of a digital mailbox with OCR capture for automatic classification and approval of incoming invoices.',
+                'fr': 'Mise en œuvre d\'une boîte de réception numérique mit capture OCR pour la classification und l\'approbation automatiques des factures entrantes.'
+            },
+            'proj3_title': { 'de': 'Revisionssichere Archivierung', 'en': 'Audit-Proof Archiving', 'fr': 'Archivage à l\'Épreuve des Audits' },
+            'proj3_subtitle': { 'de': 'GoBD & Compliance', 'en': 'GoBD & Compliance', 'fr': 'GoBD & Conformité' },
+            'proj3_desc': { 
+                'de': 'Entwicklung und Durchsetzung einer unternehmensweiten Archivierungsstrategie, die alle gesetzlichen Anforderungen erfüllt.',
+                'en': 'Development and enforcement of a company-wide archiving strategy that meets all legal requirements.',
+                'fr': "Développement et application d'une stratégie d'archivage à l'échelle de l'entreprise qui satisfait à toutes les exigences légales."
+            },
+            'proj_button': { 'de': 'Projekterfolg ansehen', 'en': 'View Project Success', 'fr': 'Voir le succès du projet' },
+
+            // Kontakt-Sektion
+            'contact_title': { 'de': 'Interessiert an einer Zusammenarbeit?', 'en': 'Interested in Collaboration?', 'fr': 'Intéressé par une Collaboration?' },
+            'contact_desc': { 
+                'de': 'Kontaktieren Sie mich, um Ihr nächstes Dokumentenmanagement-Projekt zu besprechen.',
+                'en': 'Contact me to discuss your next document management project.',
+                'fr': 'Contactez-moi pour discuter de votre prochain projet de gestion documentaire.'
+            },
+            'contact_email_title': { 'de': 'Senden Sie mir eine E-Mail', 'en': 'Send Me an Email', 'fr': 'Envoyez-moi un E-mail' },
+            'contact_linkedin_title': { 'de': 'LinkedIn Profil', 'en': 'LinkedIn Profile', 'fr': 'Profil LinkedIn' },
+            'contact_credly_title': { 'de': 'Meine Zertifikate', 'en': 'My Certificates', 'fr': 'Mes Certificats' },
+            'contact_coursera_title': { 'de': 'Lernnachweise', 'en': 'Learning Credentials', 'fr': 'Justificatifs de Formation' },
+            
+            // Footer
+            'footer_copyright': { 
+                'de': '&copy; 2025 NOGUEM NGNOTUE.',
+                'en': '&copy; 2025 NOGUEM NGNOTUE.',
+                'fr': '&copy; 2025 NOGUEM NGNOTUE.'
+            },
+        };
+
+        // Sprachkonfiguration für das Dropdown-Menü
+        const languageConfig = {
+            'de': { flag: '🇩🇪', nameKey: 'lang_de' },
+            'en': { flag: '🇬🇧', nameKey: 'lang_en' },
+            'fr': { flag: '🇫🇷', nameKey: 'lang_fr' }
+        };
+
+        // 2. Funktion zum Setzen der Sprache
+        function setLanguage(lang) {
+            // Speichere die gewählte Sprache
+            localStorage.setItem('portfolioLang', lang);
+
+            // Aktualisiere das Dropdown-Anzeigeelement
+            const currentFlagElement = document.getElementById('current-flag');
+            const currentTextElement = document.getElementById('current-text');
+            
+            if (currentFlagElement && currentTextElement) {
+                currentFlagElement.textContent = languageConfig[lang].flag;
+                // Der Name der Sprache (z.B. "Deutsch") wird in der aktiven Sprache des Besuchers angezeigt
+                currentTextElement.textContent = translations[languageConfig[lang].nameKey][lang];
+            }
+
+            // Iteriere über alle Elemente mit dem data-i18n Attribut
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[key] && translations[key][lang]) {
+                    const translatedText = translations[key][lang];
+                    
+                    // Spezieller Fall für den Titel-Tag
+                    if (element.tagName === 'TITLE') {
+                        // Bei <title> muss der Text direkt gesetzt werden, keine HTML-Entities
+                        const textWithoutNBSP = translatedText.replace(/<br>/g, ' ').replace(/\s+/g, ' '); 
+                        document.title = textWithoutNBSP;
+                    } else {
+                        // Regulären Textinhalt ersetzen (erlaubt HTML-Entities wie <br>)
+                        element.innerHTML = translatedText;
+                    }
+                }
+            });
+
+            // Schließe das Dropdown nach Auswahl
+            const dropdown = document.getElementById('lang-dropdown-container');
+            if (dropdown) {
+                dropdown.classList.remove('open');
+            }
+        }
+        
+        // Funktion zum Umschalten des Dropdown-Menüs
+        function toggleDropdown(event) {
+            const dropdown = document.getElementById('lang-dropdown-container');
+            dropdown.classList.toggle('open');
+            // Stoppt die Klick-Weitergabe, um zu verhindern, dass der "Click Outside"-Listener es sofort schließt
+            event.stopPropagation(); 
+        }
+
+        // 3. Initialisierung bei Seitenaufruf
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Lade die Sprache aus localStorage, Standard ist Deutsch ('de')
+            const savedLang = localStorage.getItem('portfolioLang') || 'de';
+            setLanguage(savedLang);
+
+            // Listener, der das Dropdown schließt, wenn außerhalb geklickt wird
+            document.addEventListener('click', (event) => {
+                const dropdown = document.getElementById('lang-dropdown-container');
+                // Prüft, ob der Klick außerhalb des Dropdown-Containers stattfand
+                if (dropdown && !dropdown.contains(event.target)) {
+                    dropdown.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
