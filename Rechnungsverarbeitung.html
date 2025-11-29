@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatisierte Rechnungsverarbeitung</title>
+    <!-- Lade Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lade Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Grundlegendes Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Angepasst an das DMS-Design (Sehr helles Grau) */
+        }
+        /* Custom-Styling für die Karten, übernommen vom DMS-Rollout-Design (Bottom-Border und Hover-Effekt) */
+        .point-card {
+            /* Die Border-Bottom-Farbe wird über Tailwind-Klassen in den einzelnen Sektionen gesetzt */
+            border-bottom: 3px solid transparent; 
+            transition: all 0.3s ease;
+        }
+        .point-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
+        <!-- Hauptüberschrift und Einleitung -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Automatisierte Rechnungsverarbeitung</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Das Projekt zur Implementierung eines digitalen Posteingangs mit OCR-Erfassung und automatisiertem Freigabeworkflow für Eingangsrechnungen.
+            </p>
+        </header>
+
+        <!-- 1. Analyse und Konzeption (Fundament) - INDIGO (wie DMS Konzeption) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-indigo-700 border-b-2 border-indigo-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="layout-grid" class="w-7 h-7 mr-3"></i> 1. Analyse und Konzeption (Fundament)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: Rechtliche Compliance -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-indigo-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="shield-check" class="w-5 h-5 mr-2 text-indigo-600"></i> Rechtliche Compliance (GoBD/DSGVO)
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Revisionssicherheit gewährleisten:** Das System muss die Unveränderbarkeit und Nachvollziehbarkeit der Rechnungen sicherstellen (GoBD-Konformität).</li>
+                        <li>**DSGVO:** Sicherstellen, dass personenbezogene Daten korrekt verarbeitet werden.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Prozessanalyse -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-indigo-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="git-branch" class="w-5 h-5 mr-2 text-indigo-600"></i> Prozessanalyse
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Ist-Prozess vs. Soll-Prozess:** Detaillierte Aufnahme aller Schritte vom Rechnungseingang bis zur Buchung.</li>
+                        <li>Identifizierung von Engpässen und manuellen Tätigkeiten.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Metadaten-Modell -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-indigo-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="tag" class="w-5 h-5 mr-2 text-indigo-600"></i> Metadaten-Modell
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Definition der Pflichtfelder:** Festlegung, welche Datenfelder (Lieferant, Rechnungsnummer, Kostenstelle etc.) von der OCR erfasst werden.</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: Archivierungsstrategie -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-indigo-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="archive" class="w-5 h-5 mr-2 text-indigo-600"></i> Archivierungsstrategie
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Festlegung von Aufbewahrungsfristen und der Speicherarchitektur (z. B. WORM-Speicher) für die GoBD-konforme Langzeitarchivierung.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 2. Technologie und Implementierung (Automatisierung) - TEAL (wie DMS Migration) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-teal-700 border-b-2 border-teal-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="cpu" class="w-7 h-7 mr-3"></i> 2. Technologie und Implementierung (Automatisierung)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: OCR/Datenerfassung -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-teal-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="scan" class="w-5 h-5 mr-2 text-teal-600"></i> OCR/Datenerfassung
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Erkennungsgenauigkeit (Accuracy):** Auswahl einer OCR-Software mit hoher Erkennungsrate.</li>
+                        <li>**Template-Matching:** Strategie für die Erstellung von Templates für häufig wiederkehrende Lieferanten.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Digitale Poststelle -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-teal-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="mail-open" class="w-5 h-5 mr-2 text-teal-600"></i> Digitale Poststelle
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Kanalintegration:** Definition des Prozesses für den Eingang (Scannen von Papier, E-Mail-Import).</li>
+                        <li>**Trennblatt-Erkennung:** Nutzung von Barcodes zum automatischen Splitten von Dokumentenstapeln.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Workflow-Engine (Freigabe) -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-teal-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="workflow" class="w-5 h-5 mr-2 text-teal-600"></i> Workflow-Engine (Freigabe)
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Dynamische Genehmigungspfade:** Implementierung eines Workflows basierend auf Werten (Betragshöhe) und Kostenstelle.</li>
+                        <li>**Stellvertretungsregeln:** Definieren, wer im Urlaubs- oder Krankheitsfall die Freigabe übernehmen darf.</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: ERP-Integration -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-teal-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="database" class="w-5 h-5 mr-2 text-teal-600"></i> ERP-Integration
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Datenabgleich:** Schnittstelle zum ERP-System (z. B. SAP, Datev) für den Abgleich von Stammdaten (Lieferanten, Bestellungen).</li>
+                        <li>Abschließende Übergabe der Buchungsdaten an das ERP-System.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Change Management und Betrieb (Erfolgssicherung) - ORANGE (wie DMS Change Management) -->
+        <section>
+            <h2 class="text-3xl font-bold text-orange-700 border-b-2 border-orange-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="activity" class="w-7 h-7 mr-3"></i> 3. Change Management und Betrieb (Erfolgssicherung)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: Schulung und Adoption -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-orange-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="users" class="w-5 h-5 mr-2 text-orange-600"></i> Schulung und Adoption
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Anwenderakzeptanz:** Erstellung von Schulungsunterlagen und Durchführung von Trainings für alle Nutzergruppen (Erfasser, Prüfer, Freigeber).</li>
+                        <li>Klare Kommunikation der Prozessvorteile.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Qualitätssicherung (QS) -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-orange-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="clipboard-check" class="w-5 h-5 mr-2 text-orange-600"></i> Qualitätssicherung (QS)
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Manuelle Prüfung (Verifikation):** Definition eines QS-Schritts, bei dem Rechnungen mit niedriger OCR-Erkennungsrate manuell überprüft werden.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Monitoring und Reporting -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-orange-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="bar-chart-2" class="w-5 h-5 mr-2 text-orange-600"></i> Monitoring und Reporting
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Key Performance Indicators (KPIs):** Messung der Bearbeitungszeit pro Rechnung, der OCR-Erfolgsquote und der Anzahl der manuellen Eingriffe.</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: Schnittstellen-Stabilität -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-orange-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="link-2" class="w-5 h-5 mr-2 text-orange-600"></i> Schnittstellen-Stabilität
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Sicherstellung der Robustheit der Schnittstellen (API, Webservices) zwischen DMS/ECM und ERP-System, um Datenverlust zu vermeiden.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Initialisiere Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

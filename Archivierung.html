@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisionssichere Archivierung (GoBD)</title>
+    <!-- Lade Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lade Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Grundlegendes Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Helles, neutrales Hintergrundgrau */
+        }
+        /* Custom-Styling für die Haupt-Tabelle/Karten */
+        .point-card {
+            border-top: 5px solid #059669; /* Grüner Streifen für Compliance und Sicherheit */
+            transition: all 0.3s ease;
+        }
+        .point-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
+        <!-- Hauptüberschrift und Einleitung -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Revisionssichere Archivierung</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Entwicklung und Durchsetzung einer unternehmensweiten Archivierungsstrategie in strikter Einhaltung der **GoBD** und aller gesetzlichen Anforderungen.
+            </p>
+        </header>
+
+        <!-- 1. Rechtliche und strategische Grundlage (Compliance) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-green-700 border-b-2 border-green-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="scale" class="w-7 h-7 mr-3"></i> 1. Rechtliche und strategische Grundlage (Compliance)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: GoBD-Konformität -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="file-check-2" class="w-5 h-5 mr-2 text-green-600"></i> GoBD-Konformität
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Nachvollziehbarkeit und Unveränderbarkeit:** Sicherstellen, dass steuerrelevanten Dokumente nach ihrer Erfassung nicht mehr verändert oder gelöscht werden können (WORM-Prinzip).</li>
+                        <li>**Verfahrensdokumentation:** Erstellung einer vollständigen, aktuellen und jederzeit verfügbaren Dokumentation des gesamten Archivierungsprozesses.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Aufbewahrungsfristen -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="timer" class="w-5 h-5 mr-2 text-green-600"></i> Aufbewahrungsfristen
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Differenzierte Fristen:** Implementierung von automatisierten Regeln zur Einhaltung unterschiedlicher Fristen (z. B. 6 Jahre für Handelsbriefe, 10 Jahre für Rechnungen und Belege).</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Datenzugriff und Prüfbarkeit -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="lock-keyhole" class="w-5 h-5 mr-2 text-green-600"></i> Datenzugriff und Prüfbarkeit
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Z3-Zugriff:** Gewährleistung der Möglichkeit, der Finanzverwaltung während einer Betriebsprüfung direkten, unveränderten Zugriff auf die Daten zu ermöglichen (maschinelle Auswertbarkeit).</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: Ersatzscannen -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="scan-line" class="w-5 h-5 mr-2 text-green-600"></i> Ersatzscannen
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Definition des Prozesses für das Scannen von Papierdokumenten und die anschließende Vernichtung des Originals. Die Einhaltung der Grundsätze des Ersatzscannens ist für die Beweiskraft entscheidend.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 2. Technische Implementierung und Systemarchitektur -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-indigo-700 border-b-2 border-indigo-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="server" class="w-7 h-7 mr-3"></i> 2. Technische Implementierung und Systemarchitektur
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: Speichertechnologie -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-t-5 border-indigo-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="hard-drive" class="w-5 h-5 mr-2 text-indigo-600"></i> Speichertechnologie
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**WORM-Konzept:** Einsatz von Speichermedien oder Software-Funktionen (z. B. Retention Lock im Cloud Storage), die das Überschreiben oder Löschen archivierter Dokumente für die Dauer der Frist verhindern.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Indexierung und Metadaten -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-t-5 border-indigo-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="file-text" class="w-5 h-5 mr-2 text-indigo-600"></i> Indexierung und Metadaten
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Vollständige Indexierung:** Sicherstellen, dass jedes Dokument anhand relevanter Metadaten (Datum, Belegnummer, Archivierungszeitpunkt) schnell und eindeutig auffindbar ist.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Integritätssicherung -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-t-5 border-indigo-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="fingerprint" class="w-5 h-5 mr-2 text-indigo-600"></i> Integritätssicherung
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Hashing/Digital Signatur:** Verwendung von Hash-Werten (z. B. SHA-256) oder digitalen Signaturen beim Archivieren, um die Integrität der Dokumente jederzeit nachweisen zu können.</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: Migration und Formate -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-t-5 border-indigo-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="refresh-cw" class="w-5 h-5 mr-2 text-indigo-600"></i> Migration und Formate
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Langfristige Lesbarkeit:** Sicherstellen, dass die archivierten Dokumente auch nach Jahrzehnten noch lesbar sind (z. B. Archivierung im PDF/A-Format).</li>
+                        <li>Strategie für die Migration von Archivbeständen bei Systemwechseln.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Change Management und Qualitätssicherung -->
+        <section>
+            <h2 class="text-3xl font-bold text-yellow-700 border-b-2 border-yellow-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="user-check" class="w-7 h-7 mr-3"></i> 3. Change Management und Qualitätssicherung
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: Kontrollmechanismen -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-t-5 border-yellow-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="eye" class="w-5 h-5 mr-2 text-yellow-600"></i> Kontrollmechanismen
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Vier-Augen-Prinzip:** Etablierung von Kontrollschritten, insbesondere bei der Erfassung und Klassifizierung, um Fehlerquellen auszuschließen.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Monitoring und Logging -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-t-5 border-yellow-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="history" class="w-5 h-5 mr-2 text-yellow-600"></i> Monitoring und Logging
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Lückenlose Protokollierung:** Alle Aktionen im Archivsystem (Speichern, Abrufen, Löschvorgänge nach Fristablauf) müssen revisionssicher protokolliert werden.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Schulung der Mitarbeiter -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-t-5 border-yellow-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="users" class="w-5 h-5 mr-2 text-yellow-600"></i> Schulung der Mitarbeiter
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Detaillierte Schulung aller beteiligten Mitarbeiter in Bezug auf die neuen Prozesse und die Notwendigkeit der GoBD-Einhaltung.</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: Audit-Trail -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-t-5 border-yellow-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="file-key" class="w-5 h-5 mr-2 text-yellow-600"></i> Audit-Trail
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Fähigkeit des Systems, einen vollständigen Audit-Trail zu jedem Dokument zu liefern, der alle Lebenszyklus-Ereignisse (Erfassung, Freigabe, Archivierung) nachweist.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Initialisiere Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

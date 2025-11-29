@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einführung eines neuen DMS</title>
+    <!-- Lade Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lade Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Grundlegendes Styling */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fc; /* Sehr helles Grau */
+        }
+        /* Custom-Styling für die Haupt-Tabelle/Karten */
+        .point-card {
+            border-bottom: 3px solid #6366f1; /* Indigo-Farbe für Fokus */
+            transition: all 0.3s ease;
+        }
+        .point-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        
+        <!-- Hauptüberschrift und Einleitung -->
+        <header class="text-center mb-12">
+            <h1 class="text-5xl font-extrabold text-gray-900 mb-4">Einführung eines neuen DMS</h1>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                Leitung der Migration von über 500.000 Dokumenten in ein neues DMS-System, fokussiert auf Datenintegrität und Change Management.
+            </p>
+        </header>
+
+        <!-- 1. Konzeption und Planung (Strategische Vorbereitung) -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-indigo-700 border-b-2 border-indigo-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="compass" class="w-7 h-7 mr-3"></i> 1. Konzeption und Planung (Strategische Vorbereitung)
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: Systemauswahl und -architektur -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="hard-hat" class="w-5 h-5 mr-2 text-indigo-600"></i> Systemauswahl und -architektur
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Anforderungsanalyse:** Detaillierte Erfassung aller fachlichen Anforderungen (Archivierung, Workflow, Suche, GoBD).</li>
+                        <li>**Integrationsplan:** Definition der Schnittstellen zu Drittsystemen (ERP, CRM) und der benötigten API-Anbindungen.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Dateninventur und -bereinigung -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="scrubber" class="w-5 h-5 mr-2 text-indigo-600"></i> Dateninventur und -bereinigung (Data Cleansing)
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Bereinigungsstrategie:** Vorbereitung der Altdaten (inkl. 500.000 Dokumente).</li>
+                        <li>Identifizierung von Dubletten, ungültigen Formaten oder veralteten Dokumenten (Triage).</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Metadaten-Mapping -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="link" class="w-5 h-5 mr-2 text-indigo-600"></i> Metadaten-Mapping
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Standardisierung:** Definition, wie die Metadaten des alten Systems in die neue Indexstruktur des DMS überführt werden.</li>
+                        <li>Sicherstellung der Konsistenz von Kostenstellen, Lieferanten-IDs etc.</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: Risikomanagement -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 mr-2 text-indigo-600"></i> Risikomanagement
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Identifizierung von Risiken (Datenverlust, Ausfallzeiten, Compliance-Verletzungen).</li>
+                        <li>Erstellung eines Notfallplans (Rollback-Strategie).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Migration und technische Durchführung -->
+        <section class="mb-16">
+            <h2 class="text-3xl font-bold text-teal-700 border-b-2 border-teal-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="move" class="w-7 h-7 mr-3"></i> 2. Migration und technische Durchführung
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: Migrationsstrategie -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-teal-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="align-horizontal-distribute" class="w-5 h-5 mr-2 text-teal-600"></i> Migrationsstrategie (Move-Strategie)
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Phasenplanung:** Festlegung, ob Big-Bang- oder schrittweise Migration (nach Abteilungen oder Dokumententypen).</li>
+                        <li>**Piloten:** Durchführung von Pilotmigrationen mit kleinen Datensätzen zur Prozessvalidierung.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Datenintegrität und -validierung -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-teal-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="check-square" class="w-5 h-5 mr-2 text-teal-600"></i> Datenintegrität und -validierung
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Verifikation:** Sicherstellung, dass nach der Migration jedes Dokument im neuen System vollständig und korrekt ist.</li>
+                        <li>Überprüfung der migrierten Dokumentenanzahl, Hash-Vergleich und Stichprobenprüfungen.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Altsystem-Stilllegung -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-teal-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="archive-restore" class="w-5 h-5 mr-2 text-teal-600"></i> Altsystem-Stilllegung
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Zugriffssicherheit:** Planung der Stilllegung des alten DMS.</li>
+                        <li>Sicherstellung, dass das Altsystem nur noch im Lesezugriff (Read-Only) verfügbar ist, um Compliance zu gewährleisten.</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: Performance-Optimierung -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-teal-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="gauge" class="w-5 h-5 mr-2 text-teal-600"></i> Performance-Optimierung
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Konfiguration der Suchindizes und Caching-Mechanismen des neuen DMS, um schnelle Zugriffszeiten zu gewährleisten.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Change Management und Rollout -->
+        <section>
+            <h2 class="text-3xl font-bold text-orange-700 border-b-2 border-orange-300 pb-2 mb-8 flex items-center">
+                <i data-lucide="users-2" class="w-7 h-7 mr-3"></i> 3. Change Management und Rollout
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Karte: Schulungskonzept -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-orange-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="graduation-cap" class="w-5 h-5 mr-2 text-orange-600"></i> Schulungskonzept
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>**Zielgruppenspezifische Schulung:** Entwicklung differenzierter Trainings für Power-User und Endanwender.</li>
+                        <li>Durchführung von Hands-on-Workshops.</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Kommunikationsplan -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-orange-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="megaphone" class="w-5 h-5 mr-2 text-orange-600"></i> Kommunikationsplan
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Frühzeitige und regelmäßige Kommunikation an alle Stakeholder über Projektfortschritt, Vorteile und Ausfallzeiten (Go-Live-Plan).</li>
+                    </ul>
+                </div>
+
+                <!-- Karte: Hypercare-Phase und Support -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-orange-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="life-buoy" class="w-5 h-5 mr-2 text-orange-600"></i> Hypercare-Phase und Support
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Etablierung einer intensiven Support-Phase (Hypercare) unmittelbar nach dem Rollout.</li>
+                        <li>Benennung von Key-Usern als erste Ansprechpartner.</li>
+                    </ul>
+                </div>
+                
+                <!-- Karte: Akzeptanzmessung -->
+                <div class="point-card bg-white p-6 rounded-lg shadow-xl border-b-3 border-orange-500">
+                    <h3 class="text-xl font-semibold mb-3 text-gray-900 flex items-center">
+                        <i data-lucide="trending-up" class="w-5 h-5 mr-2 text-orange-600"></i> Akzeptanzmessung
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 list-disc pl-5 text-sm">
+                        <li>Messung der Anwenderzufriedenheit und der Akzeptanz des neuen Systems durch Umfragen.</li>
+                        <li>Monitoring der Nutzungsstatistiken.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Initialisiere Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
