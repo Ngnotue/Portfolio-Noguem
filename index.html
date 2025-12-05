@@ -291,7 +291,9 @@
 
                 <div class="max-w-3xl mx-auto bg-gray-700/50 p-8 rounded-xl shadow-xl mb-8">
                     
-                    <form id="contact-form" action="https://formspree.io/f/your-contact-form-id" method="POST" class="space-y-6">
+                    <!-- HAUPTFORMULAR: Action wird durch JS überschrieben, um AJAX/Fetch zu verwenden -->
+                    <form id="contact-form" action="https://formspree.io/f/xrbnlogq" method="POST" onsubmit="return handleMainFormSubmit(event)" class="space-y-6">
+                        <!-- Hinweis: Formspree verwendet die in der Dashboard konfigurierte E-Mail-Adresse (ngnotue.noguem@outlook.de) -->
                         <input type="hidden" name="_subject" value="Neue Kontaktanfrage über die Webseite">
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -302,6 +304,7 @@
                             </div>
                             <div>
                                 <label for="email" data-i18n="form_email_label" class="block text-sm font-medium text-gray-300">E-Mail *</label>
+                                <!-- Hinzufügen von name="Email" für die korrekte Übertragung -->
                                 <input type="email" id="email" name="Email" required 
                                        class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-700 text-white placeholder-gray-400">
                             </div>
@@ -320,9 +323,11 @@
                         </div>
                         
                         <div class="pt-4">
-                            <button type="submit" data-i18n="form_submit_button" class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg transition duration-300 transform hover:scale-[1.01]">
+                            <button type="submit" id="main-form-submit-btn" data-i18n="form_submit_button" class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg transition duration-300 transform hover:scale-[1.01]">
                                 Nachricht senden <i data-lucide="send" class="w-5 h-5 ml-2"></i>
                             </button>
+                            <!-- Feedback-Container für das Hauptformular -->
+                            <p id="main-form-feedback" class="text-center mt-3 text-sm font-medium"></p>
                         </div>
                     </form>
                 </div>
@@ -354,7 +359,9 @@
         </div>
     </footer>
     
+    <!-- === CHATBOT-CONTAINER === -->
     <div id="chatbot-container">
+        <!-- Chat-Fenster (Anfangs versteckt) -->
         <div id="chatbot-window" class="bg-white w-80 rounded-xl shadow-2xl mb-4 ml-auto overflow-hidden">
             <div class="bg-indigo-600 text-white p-4 font-semibold flex justify-between items-center">
                 <span data-i18n="chat_header">NOGUEM CHAT</span>
@@ -363,9 +370,11 @@
                 </button>
             </div>
             <div id="chat-messages" class="p-4 h-64 overflow-y-auto space-y-4 bg-gray-50">
-                </div>
+                <!-- Nachrichten werden hier von JavaScript eingefügt -->
+            </div>
             
-            <form id="chatbot-form" action="https://formspree.io/f/your-chatbot-form-id" method="POST" onsubmit="return handleChatbotSubmit(event)">
+            <!-- CHATBOT FORMULARSTRUKTUR -->
+            <form id="chatbot-form" action="https://formspree.io/f/xrbnlogq" method="POST" onsubmit="return handleChatbotSubmit(event)">
                 <div class="p-3 border-t border-gray-200 flex items-center">
                     <input type="text" id="chat-input" name="message" data-i18n="chat_email_placeholder" placeholder="Ihre E-Mail-Adresse" required 
                            class="w-full px-3 py-2 border rounded-l-lg focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none" 
@@ -374,22 +383,28 @@
                         <i data-lucide="send" class="w-5 h-5"></i>
                     </button>
                 </div>
+                <!-- Versteckte Felder: _replyto wird mit der E-Mail des Benutzers gefüllt, _subject bleibt fest -->
                 <input type="hidden" name="_subject" value="Neue Chatbot-Nachricht von NOGUEM NGNOTUE Webseite">
                 <input type="hidden" name="_replyto" id="chatbot-reply-email">
             </form>
-            </div>
+            <!-- ENDE CHATBOT FORMULARSTRUKTUR -->
+
+        </div>
         
+        <!-- Chat-Button -->
         <button id="chatbot-button" onclick="toggleChatbot()" 
                 class="block ml-auto w-14 h-14 rounded-full bg-indigo-600 text-white shadow-lg flex items-center justify-center hover:bg-indigo-700 transition duration-300 transform hover:scale-110">
             <i data-lucide="message-square" class="w-6 h-6"></i>
         </button>
     </div>
+    <!-- ============================== -->
+
     <script>
-        // Globale Variable zur Speicherung der vom Benutzer eingegebenen E-Mail
+        // Globale Variable zur Speicherung der vom Benutzer eingegebenen E-Mail (für den Chatbot)
         let chatbotEmail = '';
         const storageKey = 'portfolioLang';
 
-        // 1. Übersetzungen (Erweitert um Chatbot-Nachrichten)
+        // 1. Übersetzungen (Unverändert)
         const translations = {
             'page_title': {
                 'de': 'NOGUEM NGNOTUE - Professionelles (Dokumentenmanagement)',
@@ -406,7 +421,6 @@
             'lang_fr': { 'de': 'Französisch', 'en': 'French', 'fr': 'Français' },
 
             // Hero-Sektion
-            'hero_greeting': { 'de': 'Hallo, ich bin NOGUEM.', 'en': 'Hello, I am NOGUEM.', 'fr': 'Bonjour, je suis NOGUEM.' },
             'hero_expert': { 'de': 'Ihr Experte für', 'en': 'Your Expert for', 'fr': 'Votre Expert en' },
             'hero_title': { 
                 'de': 'Dokumentenmanagement<br>(DMS)', 
@@ -548,7 +562,7 @@
             'form_message_label': { 'de': 'Nachricht *', 'en': 'Message *', 'fr': 'Message *' },
             'form_submit_button': { 'de': 'Nachricht senden', 'en': 'Send Message', 'fr': 'Envoyer le message' },
 
-            // NEU: Chatbot-Texte
+            // Chatbot-Texte
             'chat_header': { 'de': 'NOGUEM CHAT', 'en': 'NOGUEM CHAT', 'fr': 'NOGUEM CHAT' },
             'chat_input_placeholder': { 
                 'de': 'Ihre Nachricht...', 
@@ -576,14 +590,24 @@
                 'fr': 'Merci ! Vous pouvez maintenant poser votre question principale :'
             },
             'chat_thank_you': {
-                'de': 'Nachricht gesendet! Ich melde mich in Kürze bei dir.',
-                'en': 'Message sent! I will get back to you shortly.',
-                'fr': 'Message envoyé ! Je vous recontacterai sous peu.'
+                'de': 'Nachricht erfolgreich gesendet! Ich melde mich in Kürze bei dir.',
+                'en': 'Message sent successfully! I will get back to you shortly.',
+                'fr': 'Message envoyé avec succès ! Je vous recontacterai sous peu.'
             },
             'chat_error': {
                 'de': 'Beim Senden ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.',
                 'en': 'An error occurred while sending. Please try again later.',
                 'fr': 'Une erreur s\'est produite lors de l\'envoi. Veuillez réessayer plus tard.'
+            },
+            'form_thank_you': {
+                'de': 'Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet. Ich werde mich in Kürze bei Ihnen melden.',
+                'en': 'Thank you! Your message has been sent successfully. I will get back to you shortly.',
+                'fr': 'Merci ! Votre message a été envoyé avec succès. Je vous recontacterai sous peu.'
+            },
+            'form_error': {
+                'de': 'Leider ist beim Senden Ihrer Nachricht ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.',
+                'en': 'Unfortunately, an error occurred while sending your message. Please try again later.',
+                'fr': 'Malheureusement, une erreur est survenue lors de l\'envoi de votre message. Veuillez réessayer plus tard.'
             },
 
 
@@ -601,6 +625,55 @@
             'en': { flag: '🇬🇧', nameKey: 'lang_en' },
             'fr': { flag: '🇫🇷', nameKey: 'lang_fr' }
         };
+        
+        // --- Formular-Handler für das Haupt-Kontaktformular ---
+        async function handleMainFormSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const submitBtn = document.getElementById('main-form-submit-btn');
+            const feedbackEl = document.getElementById('main-form-feedback');
+            const lang = localStorage.getItem(storageKey) || 'de';
+            
+            // UI sperren
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Senden...`;
+            feedbackEl.textContent = '';
+            
+            try {
+                // Senden der Daten an Formspree via Fetch API
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    feedbackEl.textContent = translations['form_thank_you'][lang];
+                    feedbackEl.classList.remove('text-red-400');
+                    feedbackEl.classList.add('text-green-400');
+                    form.reset(); // Formular zurücksetzen
+                } else {
+                    feedbackEl.textContent = translations['form_error'][lang];
+                    feedbackEl.classList.remove('text-green-400');
+                    feedbackEl.classList.add('text-red-400');
+                }
+            } catch (error) {
+                feedbackEl.textContent = translations['form_error'][lang];
+                feedbackEl.classList.remove('text-green-400');
+                feedbackEl.classList.add('text-red-400');
+            } finally {
+                // UI wiederherstellen
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = translations['form_submit_button'][lang] + ' <i data-lucide="send" class="w-5 h-5 ml-2"></i>';
+                lucide.createIcons();
+            }
+
+            return false;
+        }
+
 
         // --- HILFSFUNKTIONEN FÜR CHATBOT-NACHRICHTEN ---
 
@@ -650,6 +723,7 @@
                 displayBotMessage(translations['chat_email_prompt'][lang]);
                 
                 chatInput.placeholder = translations['chat_email_placeholder'][lang];
+                chatInput.type = 'email'; // Sicherstellen, dass der Typ E-Mail ist
                 
                 // Formular temporär auf E-Mail-Erfassung umstellen
                 chatForm.onsubmit = (event) => {
@@ -669,6 +743,7 @@
                         
                         // Eingabefeld für die eigentliche Nachricht vorbereiten
                         chatInput.value = '';
+                        chatInput.type = 'text'; // Zurück zu Textfeld
                         chatInput.placeholder = translations['chat_input_placeholder'][lang];
 
                         // Bot-Aufforderung
@@ -682,6 +757,7 @@
                 };
             } else {
                 // Wenn E-Mail bereits gespeichert, direkt zur Nachrichten-Eingabe wechseln
+                chatInput.type = 'text';
                 chatInput.placeholder = translations['chat_input_placeholder'][lang];
                 document.getElementById('chatbot-reply-email').value = chatbotEmail;
                 chatForm.onsubmit = (e) => handleChatbotSubmit(e);
@@ -701,17 +777,23 @@
 
             // 1. Benutzernachricht sofort anzeigen
             displayUserMessage(message);
-            input.value = ''; 
             
             // 2. Eingabe während des Sendens sperren
+            input.value = ''; 
             input.disabled = true;
             sendButton.disabled = true;
-
+            sendButton.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
+            
             try {
-                // Senden der Daten (ohne JavaScript-Client-Validierung, da Formspree dies übernimmt)
+                // Senden der Daten (Chatbot)
+                const formData = new FormData(form);
+                // Ändern des Namens des Nachrichtenfeldes zu einem eindeutigen Namen für Formspree
+                formData.set('Chat_Nachricht', formData.get('message'));
+                formData.delete('message'); // Das alte Feld entfernen
+
                 const response = await fetch(form.action, {
                     method: form.method,
-                    body: new FormData(form),
+                    body: formData,
                     headers: {
                         'Accept': 'application/json'
                     }
@@ -720,8 +802,9 @@
                 if (response.ok) {
                     displayBotMessage(translations['chat_thank_you'][lang]);
                     // Dauerhaft deaktivieren nach erfolgreicher Übermittlung
-                    input.placeholder = 'Nachricht gesendet';
-
+                    input.placeholder = translations['chat_thank_you'][lang];
+                    input.disabled = true;
+                    sendButton.disabled = true;
                 } else {
                     // Fehlerbehandlung
                     displayBotMessage(translations['chat_error'][lang]);
@@ -734,6 +817,10 @@
                 displayBotMessage(translations['chat_error'][lang]);
                 input.disabled = false;
                 sendButton.disabled = false;
+            } finally {
+                // Sendebutton Icon wiederherstellen
+                sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`;
+                lucide.createIcons();
             }
 
             return false;
@@ -759,12 +846,6 @@
 
         // --- SPRACHWECHSEL-LOGIK ---
         
-        const languageConfig = {
-            'de': { flag: '🇩🇪', nameKey: 'lang_de' },
-            'en': { flag: '🇬🇧', nameKey: 'lang_en' },
-            'fr': { flag: '🇫🇷', nameKey: 'lang_fr' }
-        };
-        
         function setLanguage(lang) {
             localStorage.setItem(storageKey, lang);
 
@@ -785,15 +866,20 @@
                         const textWithoutNBSP = translatedText.replace(/<br>/g, ' ').replace(/\s+/g, ' '); 
                         document.title = textWithoutNBSP;
                     } else if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
-                        // Placeholders werden in initializeChatbotMessage gesetzt, hier nur für den Fall von Nicht-Chat-Inputs
-                        if (key !== 'chat_email_placeholder' && key !== 'chat_input_placeholder') {
-                             element.setAttribute('placeholder', translatedText);
-                        }
+                        // Placeholders werden in initializeChatbotMessage gesetzt oder sind statisch.
+                        // Hier setzen wir nur statische Placeholders (aktuell keine im HTML)
                     } else {
                         element.innerHTML = translatedText;
                     }
                 }
             });
+            
+            // Haupt-Submit-Button Text bei Sprachwechsel aktualisieren
+            const submitBtn = document.getElementById('main-form-submit-btn');
+            if (submitBtn && !submitBtn.disabled) {
+                submitBtn.innerHTML = translations['form_submit_button'][lang] + ' <i data-lucide="send" class="w-5 h-5 ml-2"></i>';
+            }
+
 
             const dropdown = document.getElementById('lang-dropdown-container');
             if (dropdown) {
@@ -801,7 +887,6 @@
             }
             
             // NEU: Chatbot-Nachricht bei Sprachwechsel neu initialisieren
-            // Dies ist wichtig, falls der Chat bereits geöffnet war
             if (document.getElementById('chatbot-window').classList.contains('open')) {
                 initializeChatbotMessage(lang);
             }
@@ -833,7 +918,8 @@
                 const chatbotContainer = document.getElementById('chatbot-container');
                 const chatWindow = document.getElementById('chatbot-window');
                 
-                if (chatWindow.classList.contains('open') && !chatbotContainer.contains(event.target)) {
+                // Überprüfe, ob Chat offen ist UND der Klick außerhalb des Containers war
+                if (chatWindow.classList.contains('open') && !chatbotContainer.contains(event.target) && event.target.id !== 'chatbot-button') {
                     toggleChatbot();
                 }
             });
