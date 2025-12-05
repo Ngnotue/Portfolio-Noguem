@@ -385,7 +385,11 @@
         </button>
     </div>
     <script>
-        // 1. Übersetzungen
+        // Globale Variable zur Speicherung der vom Benutzer eingegebenen E-Mail
+        let chatbotEmail = '';
+        const storageKey = 'portfolioLang';
+
+        // 1. Übersetzungen (Erweitert um Chatbot-Nachrichten)
         const translations = {
             'page_title': {
                 'de': 'NOGUEM NGNOTUE - Professionelles (Dokumentenmanagement)',
@@ -404,7 +408,6 @@
             // Hero-Sektion
             'hero_greeting': { 'de': 'Hallo, ich bin NOGUEM.', 'en': 'Hello, I am NOGUEM.', 'fr': 'Bonjour, je suis NOGUEM.' },
             'hero_expert': { 'de': 'Ihr Experte für', 'en': 'Your Expert for', 'fr': 'Votre Expert en' },
-            // NEU: Verwendung von <br> für den Zeilenumbruch zwischen Begriff und Abkürzung
             'hero_title': { 
                 'de': 'Dokumentenmanagement<br>(DMS)', 
                 'en': 'Document Management<br>(DMS)', 
@@ -417,7 +420,7 @@
             },
             'hero_button': { 'de': 'Meine Referenzen ansehen', 'en': 'View My References', 'fr': 'Voir mes références' },
             
-            // NEU: Übersetzungen für die Kontakt-Buttons
+            // Kontakt-Buttons
             'btn_whatsapp': { 'de': 'WhatsApp', 'en': 'WhatsApp', 'fr': 'WhatsApp' },
             'btn_email': { 'de': 'E-Mail', 'en': 'Email', 'fr': 'E-mail' },
             'btn_schedule': { 'de': 'Termin buchen', 'en': 'Schedule', 'fr': 'Prendre Rendez-vous' },
@@ -438,9 +441,9 @@
             },
             'skill3_title': { 'de': 'DMS/ECM-Systeme', 'en': 'DMS/ECM Systems', 'fr': 'Systèmes GED/ECM' },
             'skill3_desc': { 
-                'de': 'Konzeption, Einführung und Administration gängiger DMS-Lösungen (z.B. SharePoint, OpenText, nScale).',
-                'en': 'Conception, introduction, and administration of common DMS solutions (e.g., SharePoint, OpenText, nScale).',
-                'fr': 'Conception, introduction et administration de solutions GED courantes (par ex. SharePoint, OpenText, nScale).'
+                'de': 'Konzeption, Einführung und Administration gängiger DMS-Lösungen (z.B. SharePoint, OpenText, ELO, d.velop).',
+                'en': 'Conception, introduction, and administration of common DMS solutions (e.g., SharePoint, OpenText, ELO, d.velop).',
+                'fr': 'Conception, introduction et administration de solutions GED courantes (par ex. SharePoint, OpenText, ELO, d.velop).'
             },
             'skill4_title': { 'de': 'Digitale Archivierung', 'en': 'Digital Archiving', 'fr': 'Archivage Numérique' },
             'skill4_desc': { 
@@ -474,7 +477,7 @@
             },
             'proj_button': { 'de': 'Projekterfolg ansehen', 'en': 'View Project Success', 'fr': 'Voir le succès du projet' },
             
-            // NEU: Haupttext der "Über mich" Sektion
+            // Haupttext der "Über mich" Sektion
             'about_main_text': {
                 'de': `
                     <p class="text-lg text-indigo-200 leading-relaxed">
@@ -539,7 +542,6 @@
             'contact_coursera_title': { 'de': 'Lernnachweise', 'en': 'Learning Credentials', 'fr': 'Justificatifs de Formation' },
             
             // Formular-Texte
-            'form_title': { 'de': 'Oder senden Sie mir eine Nachricht', 'en': 'Or send me a message', 'fr': 'Ou envoyez-moi un message' },
             'form_name_label': { 'de': 'Name *', 'en': 'Name *', 'fr': 'Nom *' },
             'form_email_label': { 'de': 'E-Mail *', 'en': 'Email *', 'fr': 'E-mail *' },
             'form_subject_label': { 'de': 'Betreff', 'en': 'Subject', 'fr': 'Sujet' },
@@ -548,12 +550,42 @@
 
             // NEU: Chatbot-Texte
             'chat_header': { 'de': 'NOGUEM CHAT', 'en': 'NOGUEM CHAT', 'fr': 'NOGUEM CHAT' },
-            'chat_input_placeholder': { 'de': 'Ihre Nachricht...', 'en': 'Your message...', 'fr': 'Votre message...' },
-            'chat_initial_message': {
-                'de': 'Hey! 👋 Ich bin Noguem, dein Dokumentenmanager. Wie kann ich dir heute bei deinem DMS-Projekt helfen?',
-                'en': 'Hey! 👋 I\'m Noguem, your document manager. How can I help you with your DMS project today?',
-                'fr': 'Salut! 👋 Je suis Noguem, votre gestionnaire de documents. Comment puis-je vous aider avec votre projet GED aujourd\'hui?'
+            'chat_input_placeholder': { 
+                'de': 'Ihre Nachricht...', 
+                'en': 'Your message...', 
+                'fr': 'Votre message...' 
             },
+            'chat_initial_message': {
+                'de': 'Hey! 👋 Ich bin Noguem, dein Dokumentenmanager. Ich arbeite für Ihr DMS Projekt. Wie kann ich dir heute helfen?',
+                'en': 'Hey! 👋 I\'m Noguem, your document manager. I work for your DMS project. How can I help you today?',
+                'fr': 'Salut! 👋 Je suis Noguem, votre gestionnaire de documents. Je travaille pour votre projet GED. Comment puis-je vous aider aujourd\'hui?'
+            },
+            'chat_email_prompt': {
+                'de': 'Bevor wir starten, gib mir bitte deine E-Mail-Adresse. So kann ich dir antworten, selbst wenn ich gerade offline bin:',
+                'en': 'Before we start, please give me your email address. This way, I can reply even if I am offline:',
+                'fr': 'Avant de commencer, veuillez me donner votre adresse e-mail. Je pourrai ainsi vous répondre même si je suis hors ligne :'
+            },
+            'chat_email_placeholder': {
+                'de': 'Ihre E-Mail-Adresse',
+                'en': 'Your email address',
+                'fr': 'Votre adresse e-mail'
+            },
+            'chat_email_thanks_prompt': {
+                'de': 'Danke! Jetzt kannst du deine eigentliche Frage stellen:',
+                'en': 'Thanks! Now you can ask your actual question:',
+                'fr': 'Merci ! Vous pouvez maintenant poser votre question principale :'
+            },
+            'chat_thank_you': {
+                'de': 'Nachricht gesendet! Ich melde mich in Kürze bei dir.',
+                'en': 'Message sent! I will get back to you shortly.',
+                'fr': 'Message envoyé ! Je vous recontacterai sous peu.'
+            },
+            'chat_error': {
+                'de': 'Beim Senden ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.',
+                'en': 'An error occurred while sending. Please try again later.',
+                'fr': 'Une erreur s\'est produite lors de l\'envoi. Veuillez réessayer plus tard.'
+            },
+
 
             // Footer
             'footer_copyright': { 
@@ -570,132 +602,246 @@
             'fr': { flag: '🇫🇷', nameKey: 'lang_fr' }
         };
 
-        // Speichert die aktuell eingestellte Sprache
-        let currentLanguage = 'de';
+        // --- HILFSFUNKTIONEN FÜR CHATBOT-NACHRICHTEN ---
 
-        // 2. Funktion zum Setzen der Sprache
-        function setLanguage(lang) {
-            currentLanguage = lang; // Aktualisiere die globale Variable
-            // Speichere die gewählte Sprache
-            localStorage.setItem('portfolioLang', lang);
+        function displayBotMessage(text) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'flex justify-start';
+            messageElement.innerHTML = `
+                <div class="bg-indigo-100 p-3 rounded-xl rounded-tl-none max-w-[80%] shadow-md text-gray-800">
+                    ${text}
+                </div>
+            `;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
 
-            // Aktualisiere das Dropdown-Anzeigeelement
-            const currentFlagElement = document.getElementById('current-flag');
-            const currentTextElement = document.getElementById('current-text');
+        function displayUserMessage(text) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'flex justify-end';
+            messageElement.innerHTML = `
+                <div class="bg-indigo-600 text-white p-3 rounded-xl rounded-br-none max-w-[80%] shadow-md">
+                    ${text}
+                </div>
+            `;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // --- HAUPT-CHATBOT-LOGIK ---
+
+        function initializeChatbotMessage(lang) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const chatForm = document.getElementById('chatbot-form');
+            const chatInput = document.getElementById('chat-input');
+            const sendButton = chatForm.querySelector('button[type="submit"]');
+
+            messagesContainer.innerHTML = ''; // Alte Nachrichten löschen
+            chatInput.disabled = false;
+            sendButton.disabled = false;
             
-            if (currentFlagElement && currentTextElement) {
-                currentFlagElement.textContent = languageConfig[lang].flag;
-                // Der Name der Sprache (z.B. "Deutsch") wird in der aktiven Sprache des Besuchers angezeigt
-                currentTextElement.textContent = translations[languageConfig[lang].nameKey][lang];
-            }
+            // 1. Willkommensnachricht anzeigen
+            displayBotMessage(translations['chat_initial_message'][lang]);
+            
+            // 2. Email-Abfrage starten, wenn keine E-Mail gespeichert ist
+            if (!chatbotEmail) {
+                displayBotMessage(translations['chat_email_prompt'][lang]);
+                
+                chatInput.placeholder = translations['chat_email_placeholder'][lang];
+                
+                // Formular temporär auf E-Mail-Erfassung umstellen
+                chatForm.onsubmit = (event) => {
+                    event.preventDefault();
+                    const email = chatInput.value.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
 
-            // Iteriere über alle Elemente mit dem data-i18n Attribut
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[key] && translations[key][lang]) {
-                    const translatedText = translations[key][lang];
-                    
-                    // Spezieller Fall für den Titel-Tag
-                    if (element.tagName === 'TITLE') {
-                        // Bei <title> muss der Text direkt gesetzt werden, keine HTML-Entities
-                        const textWithoutNBSP = translatedText.replace(/<br>/g, ' ').replace(/\s+/g, ' '); 
-                        document.title = textWithoutNBSP;
-                    } else if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
-                        // Spezieller Fall für PlaceHolder
-                        element.setAttribute('placeholder', translatedText);
-                    } else {
-                        // Regulären Textinhalt ersetzen (erlaubt HTML-Entities wie <br> oder <p>)
-                        element.innerHTML = translatedText;
+                    if (emailRegex.test(email)) {
+                        chatbotEmail = email;
+                        
+                        // Visuelle Bestätigung und Speicherung
+                        displayUserMessage(email); 
+                        document.getElementById('chatbot-reply-email').value = chatbotEmail;
+                        
+                        // Formular auf Nachrichtenversand umstellen
+                        chatForm.onsubmit = (e) => handleChatbotSubmit(e);
+                        
+                        // Eingabefeld für die eigentliche Nachricht vorbereiten
+                        chatInput.value = '';
+                        chatInput.placeholder = translations['chat_input_placeholder'][lang];
+
+                        // Bot-Aufforderung
+                        displayBotMessage(translations['chat_email_thanks_prompt'][lang]);
+                        
+                        return false;
+                    } else if (email) {
+                        displayBotMessage('Bitte geben Sie eine gültige E-Mail-Adresse ein.', lang);
                     }
-                }
-            });
+                    return false;
+                };
+            } else {
+                // Wenn E-Mail bereits gespeichert, direkt zur Nachrichten-Eingabe wechseln
+                chatInput.placeholder = translations['chat_input_placeholder'][lang];
+                document.getElementById('chatbot-reply-email').value = chatbotEmail;
+                chatForm.onsubmit = (e) => handleChatbotSubmit(e);
+            }
+        }
 
-            // Schließe das Dropdown nach Auswahl
-            const dropdown = document.getElementById('lang-dropdown-container');
-            if (dropdown) {
-                dropdown.classList.remove('open');
+        async function handleChatbotSubmit(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const input = document.getElementById('chat-input');
+            const sendButton = form.querySelector('button[type="submit"]');
+            const message = input.value.trim();
+            const lang = localStorage.getItem(storageKey) || 'de';
+            
+            if (message === '') return false;
+
+            // 1. Benutzernachricht sofort anzeigen
+            displayUserMessage(message);
+            input.value = ''; 
+            
+            // 2. Eingabe während des Sendens sperren
+            input.disabled = true;
+            sendButton.disabled = true;
+
+            try {
+                // Senden der Daten (ohne JavaScript-Client-Validierung, da Formspree dies übernimmt)
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    displayBotMessage(translations['chat_thank_you'][lang]);
+                    // Dauerhaft deaktivieren nach erfolgreicher Übermittlung
+                    input.placeholder = 'Nachricht gesendet';
+
+                } else {
+                    // Fehlerbehandlung
+                    displayBotMessage(translations['chat_error'][lang]);
+                    // Wieder ermöglichen
+                    input.disabled = false;
+                    sendButton.disabled = false;
+                }
+            } catch (error) {
+                // Netzwerk-Fehler
+                displayBotMessage(translations['chat_error'][lang]);
+                input.disabled = false;
+                sendButton.disabled = false;
             }
 
-            // NEU: Setze die Startnachricht des Chatbots nach dem Sprachwechsel
-            initializeChatbotMessage(currentLanguage);
-        }
-        
-        // Funktion zum Umschalten des Dropdown-Menüs
-        function toggleDropdown(event) {
-            const dropdown = document.getElementById('lang-dropdown-container');
-            dropdown.classList.toggle('open');
-            // Stoppt die Klick-Weitergabe, um zu verhindern, dass der "Click Outside"-Listener es sofort schließt
-            event.stopPropagation(); 
+            return false;
         }
 
-        // NEU: Chatbot-Funktionen
         function toggleChatbot() {
             const chatWindow = document.getElementById('chatbot-window');
             chatWindow.classList.toggle('open');
             
             const chatButtonIcon = document.getElementById('chatbot-button').querySelector('i');
             
-            // Ändere das Icon des Buttons
             if (chatWindow.classList.contains('open')) {
-                // Fenster ist offen, zeige "X" zum Schließen
+                // Fenster ist offen
                 chatButtonIcon.setAttribute('data-lucide', 'x');
+                // Wenn das Fenster geöffnet wird, stellen Sie sicher, dass der Chat initialisiert ist
+                initializeChatbotMessage(localStorage.getItem(storageKey) || 'de');
             } else {
-                // Fenster ist geschlossen, zeige "message-square" zum Öffnen
+                // Fenster ist geschlossen
                 chatButtonIcon.setAttribute('data-lucide', 'message-square');
             }
-            // Erneut Lucide Icons erstellen, um das neue Icon zu rendern
             lucide.createIcons(); 
         }
 
-        function initializeChatbotMessage(lang) {
-            const messagesContainer = document.getElementById('chat-messages');
-            // Lösche alle alten Nachrichten
-            messagesContainer.innerHTML = '';
+        // --- SPRACHWECHSEL-LOGIK ---
+        
+        const languageConfig = {
+            'de': { flag: '🇩🇪', nameKey: 'lang_de' },
+            'en': { flag: '🇬🇧', nameKey: 'lang_en' },
+            'fr': { flag: '🇫🇷', nameKey: 'lang_fr' }
+        };
+        
+        function setLanguage(lang) {
+            localStorage.setItem(storageKey, lang);
+
+            const currentFlagElement = document.getElementById('current-flag');
+            const currentTextElement = document.getElementById('current-text');
             
-            const initialMessageText = translations['chat_initial_message'][lang];
+            if (currentFlagElement && currentTextElement) {
+                currentFlagElement.textContent = languageConfig[lang].flag;
+                currentTextElement.textContent = translations[languageConfig[lang].nameKey][lang];
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[key] && translations[key][lang]) {
+                    const translatedText = translations[key][lang];
+                    
+                    if (element.tagName === 'TITLE') {
+                        const textWithoutNBSP = translatedText.replace(/<br>/g, ' ').replace(/\s+/g, ' '); 
+                        document.title = textWithoutNBSP;
+                    } else if (element.tagName === 'INPUT' && element.hasAttribute('placeholder')) {
+                        // Placeholders werden in initializeChatbotMessage gesetzt, hier nur für den Fall von Nicht-Chat-Inputs
+                        if (key !== 'chat_email_placeholder' && key !== 'chat_input_placeholder') {
+                             element.setAttribute('placeholder', translatedText);
+                        }
+                    } else {
+                        element.innerHTML = translatedText;
+                    }
+                }
+            });
+
+            const dropdown = document.getElementById('lang-dropdown-container');
+            if (dropdown) {
+                dropdown.classList.remove('open');
+            }
             
-            // Erstelle das Nachrichtenelement (Stil für Bot-Nachricht)
-            const messageElement = document.createElement('div');
-            messageElement.className = 'flex justify-start';
-            messageElement.innerHTML = `
-                <div class="bg-indigo-100 p-3 rounded-xl rounded-tl-none max-w-[80%] shadow-md text-gray-800">
-                    ${initialMessageText}
-                </div>
-            `;
-            
-            messagesContainer.appendChild(messageElement);
-            // Scrolle zum neuesten Element
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            // NEU: Chatbot-Nachricht bei Sprachwechsel neu initialisieren
+            // Dies ist wichtig, falls der Chat bereits geöffnet war
+            if (document.getElementById('chatbot-window').classList.contains('open')) {
+                initializeChatbotMessage(lang);
+            }
+        }
+        
+        function toggleDropdown(event) {
+            const dropdown = document.getElementById('lang-dropdown-container');
+            dropdown.classList.toggle('open');
+            event.stopPropagation(); 
         }
 
         // 3. Initialisierung bei Seitenaufruf
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             
-            // Lade die Sprache aus localStorage, Standard ist Deutsch ('de')
-            const savedLang = localStorage.getItem('portfolioLang') || 'de';
-            setLanguage(savedLang); // Setzt auch die initiale Chat-Nachricht
-            currentLanguage = savedLang; // Stelle sicher, dass die globale Variable gesetzt ist
+            const savedLang = localStorage.getItem(storageKey) || 'de';
+            setLanguage(savedLang);
 
             // Listener, der das Dropdown schließt, wenn außerhalb geklickt wird
             document.addEventListener('click', (event) => {
                 const dropdown = document.getElementById('lang-dropdown-container');
-                // Prüft, ob der Klick außerhalb des Dropdown-Containers stattfand
                 if (dropdown && !dropdown.contains(event.target)) {
                     dropdown.classList.remove('open');
                 }
             });
             
-            // NEU: Listener, der das Chat-Fenster schließt, wenn außerhalb geklickt wird (außer auf den Button)
+            // NEU: Listener, der das Chat-Fenster schließt, wenn außerhalb geklickt wird
             document.addEventListener('click', (event) => {
                 const chatbotContainer = document.getElementById('chatbot-container');
                 const chatWindow = document.getElementById('chatbot-window');
                 
-                // Schließe nur, wenn das Fenster offen ist UND der Klick außerhalb des Containers stattfand
                 if (chatWindow.classList.contains('open') && !chatbotContainer.contains(event.target)) {
                     toggleChatbot();
                 }
             });
+            
+            // Speichere die E-Mail-Adresse im Chatbot in der hidden-Variable, falls bereits vorhanden
+            if (chatbotEmail) {
+                 document.getElementById('chatbot-reply-email').value = chatbotEmail;
+            }
         });
     </script>
 </body>
