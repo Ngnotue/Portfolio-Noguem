@@ -291,9 +291,7 @@
 
                 <div class="max-w-3xl mx-auto bg-gray-700/50 p-8 rounded-xl shadow-xl mb-8">
                     
-                    <!-- HAUPTFORMULAR: Action wird durch JS überschrieben, um AJAX/Fetch zu verwenden -->
                     <form id="contact-form" action="https://formspree.io/f/xrbnlogq" method="POST" onsubmit="return handleMainFormSubmit(event)" class="space-y-6">
-                        <!-- Hinweis: Formspree verwendet die in der Dashboard konfigurierte E-Mail-Adresse (ngnotue.noguem@outlook.de) -->
                         <input type="hidden" name="_subject" value="Neue Kontaktanfrage über die Webseite">
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -304,7 +302,6 @@
                             </div>
                             <div>
                                 <label for="email" data-i18n="form_email_label" class="block text-sm font-medium text-gray-300">E-Mail *</label>
-                                <!-- Hinzufügen von name="Email" für die korrekte Übertragung -->
                                 <input type="email" id="email" name="Email" required 
                                        class="mt-1 block w-full px-4 py-2 border border-gray-600 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 bg-gray-700 text-white placeholder-gray-400">
                             </div>
@@ -326,7 +323,6 @@
                             <button type="submit" id="main-form-submit-btn" data-i18n="form_submit_button" class="w-full flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg transition duration-300 transform hover:scale-[1.01]">
                                 Nachricht senden <i data-lucide="send" class="w-5 h-5 ml-2"></i>
                             </button>
-                            <!-- Feedback-Container für das Hauptformular -->
                             <p id="main-form-feedback" class="text-center mt-3 text-sm font-medium"></p>
                         </div>
                     </form>
@@ -359,9 +355,7 @@
         </div>
     </footer>
     
-    <!-- === CHATBOT-CONTAINER === -->
     <div id="chatbot-container">
-        <!-- Chat-Fenster (Anfangs versteckt) -->
         <div id="chatbot-window" class="bg-white w-80 rounded-xl shadow-2xl mb-4 ml-auto overflow-hidden">
             <div class="bg-indigo-600 text-white p-4 font-semibold flex justify-between items-center">
                 <span data-i18n="chat_header">NOGUEM CHAT</span>
@@ -370,41 +364,31 @@
                 </button>
             </div>
             <div id="chat-messages" class="p-4 h-64 overflow-y-auto space-y-4 bg-gray-50">
-                <!-- Nachrichten werden hier von JavaScript eingefügt -->
-            </div>
+                </div>
             
-            <!-- CHATBOT FORMULARSTRUKTUR -->
             <form id="chatbot-form" action="https://formspree.io/f/xrbnlogq" method="POST" onsubmit="return handleChatbotSubmit(event)">
                 <div class="p-3 border-t border-gray-200 flex items-center">
-                    <input type="text" id="chat-input" name="message" data-i18n="chat_email_placeholder" placeholder="Ihre E-Mail-Adresse" required 
+                    <input type="text" id="chat-input" name="message" data-i18n="chat_input_placeholder" placeholder="Ihre Nachricht..." required 
                            class="w-full px-3 py-2 border rounded-l-lg focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none" 
                            autocomplete="off">
                     <button type="submit" class="bg-indigo-600 text-white p-3 rounded-r-lg hover:bg-indigo-700 transition duration-150 flex-shrink-0">
                         <i data-lucide="send" class="w-5 h-5"></i>
                     </button>
                 </div>
-                <!-- Versteckte Felder: _replyto wird mit der E-Mail des Benutzers gefüllt, _subject bleibt fest -->
                 <input type="hidden" name="_subject" value="Neue Chatbot-Nachricht von NOGUEM NGNOTUE Webseite">
-                <input type="hidden" name="_replyto" id="chatbot-reply-email">
             </form>
-            <!-- ENDE CHATBOT FORMULARSTRUKTUR -->
-
-        </div>
+            </div>
         
-        <!-- Chat-Button -->
         <button id="chatbot-button" onclick="toggleChatbot()" 
                 class="block ml-auto w-14 h-14 rounded-full bg-indigo-600 text-white shadow-lg flex items-center justify-center hover:bg-indigo-700 transition duration-300 transform hover:scale-110">
             <i data-lucide="message-square" class="w-6 h-6"></i>
         </button>
     </div>
-    <!-- ============================== -->
-
     <script>
-        // Globale Variable zur Speicherung der vom Benutzer eingegebenen E-Mail (für den Chatbot)
-        let chatbotEmail = '';
+        // Globale Variable zur Speicherung der vom Benutzer eingegebenen E-Mail (für den Chatbot) ENTFERNT
         const storageKey = 'portfolioLang';
 
-        // 1. Übersetzungen (Unverändert)
+        // 1. Übersetzungen (E-Mail-relevante Texte für Chatbot entfernt, Chat-Placeholder angepasst)
         const translations = {
             'page_title': {
                 'de': 'NOGUEM NGNOTUE - Professionelles (Dokumentenmanagement)',
@@ -562,37 +546,22 @@
             'form_message_label': { 'de': 'Nachricht *', 'en': 'Message *', 'fr': 'Message *' },
             'form_submit_button': { 'de': 'Nachricht senden', 'en': 'Send Message', 'fr': 'Envoyer le message' },
 
-            // Chatbot-Texte
+            // Chatbot-Texte (E-Mail-Prompts entfernt, Placeholder angepasst)
             'chat_header': { 'de': 'NOGUEM CHAT', 'en': 'NOGUEM CHAT', 'fr': 'NOGUEM CHAT' },
             'chat_input_placeholder': { 
-                'de': 'Ihre Nachricht...', 
-                'en': 'Your message...', 
-                'fr': 'Votre message...' 
+                'de': 'Ihre Nachricht...', // NEU
+                'en': 'Your message...', // NEU
+                'fr': 'Votre message...' // NEU
             },
             'chat_initial_message': {
-                'de': 'Hey! 👋 Ich bin Noguem, dein Dokumentenmanager. Ich arbeite für Ihr DMS Projekt. Wie kann ich dir heute helfen?',
-                'en': 'Hey! 👋 I\'m Noguem, your document manager. I work for your DMS project. How can I help you today?',
-                'fr': 'Salut! 👋 Je suis Noguem, votre gestionnaire de documents. Je travaille pour votre projet GED. Comment puis-je vous aider aujourd\'hui?'
-            },
-            'chat_email_prompt': {
-                'de': 'Bevor wir starten, gib mir bitte deine E-Mail-Adresse. So kann ich dir antworten, selbst wenn ich gerade offline bin:',
-                'en': 'Before we start, please give me your email address. This way, I can reply even if I am offline:',
-                'fr': 'Avant de commencer, veuillez me donner votre adresse e-mail. Je pourrai ainsi vous répondre même si je suis hors ligne :'
-            },
-            'chat_email_placeholder': {
-                'de': 'Ihre E-Mail-Adresse',
-                'en': 'Your email address',
-                'fr': 'Votre adresse e-mail'
-            },
-            'chat_email_thanks_prompt': {
-                'de': 'Danke! Jetzt kannst du deine eigentliche Frage stellen:',
-                'en': 'Thanks! Now you can ask your actual question:',
-                'fr': 'Merci ! Vous pouvez maintenant poser votre question principale :'
+                'de': 'Hey! 👋 Ich bin Noguem, dein Dokumentenmanager. Ich arbeite für Ihr DMS Projekt. Wie kann ich dir heute helfen? (Hinweis: Dies ist ein anonymer Chat ohne direkte Antwortmöglichkeit)', // HINWEIS HINZUGEFÜGT
+                'en': 'Hey! 👋 I\'m Noguem, your document manager. I work for your DMS project. How can I help you today? (Note: This is an anonymous chat without direct reply capability)', // HINWEIS HINZUGEFÜGT
+                'fr': 'Salut! 👋 Je suis Noguem, votre gestionnaire de documents. Je travaille pour votre projet GED. Comment puis-je vous aider aujourd\'hui? (Note: Ceci est un chat anonyme sans possibilité de réponse directe)' // HINWEIS HINZUGEFÜGT
             },
             'chat_thank_you': {
-                'de': 'Nachricht erfolgreich gesendet! Ich melde mich in Kürze bei dir.',
-                'en': 'Message sent successfully! I will get back to you shortly.',
-                'fr': 'Message envoyé avec succès ! Je vous recontacterai sous peu.'
+                'de': 'Nachricht erfolgreich gesendet! Ich melde mich in Kürze bei dir (falls Sie eine E-Mail-Adresse in der Nachricht hinterlassen haben).', // TEXT ANONYM ANGEPASST
+                'en': 'Message sent successfully! I will get back to you shortly (if you left an email address in the message).', // TEXT ANONYM ANGEPASST
+                'fr': 'Message envoyé avec succès ! Je vous recontacterai sous peu (si vous avez laissé une adresse e-mail dans le message).' // TEXT ANONYM ANGEPASST
             },
             'chat_error': {
                 'de': 'Beim Senden ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.',
@@ -703,65 +672,26 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // --- HAUPT-CHATBOT-LOGIK ---
+        // --- HAUPT-CHATBOT-LOGIK (Anonym und ohne E-Mail-Check) ---
 
         function initializeChatbotMessage(lang) {
             const messagesContainer = document.getElementById('chat-messages');
             const chatForm = document.getElementById('chatbot-form');
             const chatInput = document.getElementById('chat-input');
-            const sendButton = chatForm.querySelector('button[type="submit"]');
-
+            
             messagesContainer.innerHTML = ''; // Alte Nachrichten löschen
-            chatInput.disabled = false;
-            sendButton.disabled = false;
             
-            // 1. Willkommensnachricht anzeigen
+            // Initialisierungs-Meldungen
             displayBotMessage(translations['chat_initial_message'][lang]);
+
+            // Eingabefeld für die Nachricht vorbereiten
+            chatInput.value = '';
+            chatInput.type = 'text'; // Sicherstellen, dass der Typ Text ist
+            chatInput.placeholder = translations['chat_input_placeholder'][lang];
+            chatInput.disabled = false;
             
-            // 2. Email-Abfrage starten, wenn keine E-Mail gespeichert ist
-            if (!chatbotEmail) {
-                displayBotMessage(translations['chat_email_prompt'][lang]);
-                
-                chatInput.placeholder = translations['chat_email_placeholder'][lang];
-                chatInput.type = 'email'; // Sicherstellen, dass der Typ E-Mail ist
-                
-                // Formular temporär auf E-Mail-Erfassung umstellen
-                chatForm.onsubmit = (event) => {
-                    event.preventDefault();
-                    const email = chatInput.value.trim();
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
-
-                    if (emailRegex.test(email)) {
-                        chatbotEmail = email;
-                        
-                        // Visuelle Bestätigung und Speicherung
-                        displayUserMessage(email); 
-                        document.getElementById('chatbot-reply-email').value = chatbotEmail;
-                        
-                        // Formular auf Nachrichtenversand umstellen
-                        chatForm.onsubmit = (e) => handleChatbotSubmit(e);
-                        
-                        // Eingabefeld für die eigentliche Nachricht vorbereiten
-                        chatInput.value = '';
-                        chatInput.type = 'text'; // Zurück zu Textfeld
-                        chatInput.placeholder = translations['chat_input_placeholder'][lang];
-
-                        // Bot-Aufforderung
-                        displayBotMessage(translations['chat_email_thanks_prompt'][lang]);
-                        
-                        return false;
-                    } else if (email) {
-                        displayBotMessage('Bitte geben Sie eine gültige E-Mail-Adresse ein.', lang);
-                    }
-                    return false;
-                };
-            } else {
-                // Wenn E-Mail bereits gespeichert, direkt zur Nachrichten-Eingabe wechseln
-                chatInput.type = 'text';
-                chatInput.placeholder = translations['chat_input_placeholder'][lang];
-                document.getElementById('chatbot-reply-email').value = chatbotEmail;
-                chatForm.onsubmit = (e) => handleChatbotSubmit(e);
-            }
+            // Formular auf Nachrichtenversand einstellen
+            chatForm.onsubmit = (e) => handleChatbotSubmit(e);
         }
 
         async function handleChatbotSubmit(event) {
@@ -770,13 +700,15 @@
             const form = event.target;
             const input = document.getElementById('chat-input');
             const sendButton = form.querySelector('button[type="submit"]');
-            const message = input.value.trim();
+            
+            // Sicherstellen, dass die Nachricht nicht leer ist
+            const messageText = input ? input.value.trim() : ''; 
             const lang = localStorage.getItem(storageKey) || 'de';
             
-            if (message === '') return false;
+            if (messageText === '') return false; // Hier wird das Senden leerer Nachrichten verhindert
 
             // 1. Benutzernachricht sofort anzeigen
-            displayUserMessage(message);
+            displayUserMessage(messageText);
             
             // 2. Eingabe während des Sendens sperren
             input.value = ''; 
@@ -801,10 +733,9 @@
 
                 if (response.ok) {
                     displayBotMessage(translations['chat_thank_you'][lang]);
-                    // Dauerhaft deaktivieren nach erfolgreicher Übermittlung
-                    input.placeholder = translations['chat_thank_you'][lang];
-                    input.disabled = true;
-                    sendButton.disabled = true;
+                    // Wieder ermöglichen, um weitere Nachrichten zu senden
+                    input.disabled = false;
+                    sendButton.disabled = false;
                 } else {
                     // Fehlerbehandlung
                     displayBotMessage(translations['chat_error'][lang]);
@@ -879,6 +810,12 @@
             if (submitBtn && !submitBtn.disabled) {
                 submitBtn.innerHTML = translations['form_submit_button'][lang] + ' <i data-lucide="send" class="w-5 h-5 ml-2"></i>';
             }
+            
+            // Chat-Input Placeholder aktualisieren
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) {
+                 chatInput.placeholder = translations['chat_input_placeholder'][lang];
+            }
 
 
             const dropdown = document.getElementById('lang-dropdown-container');
@@ -923,11 +860,6 @@
                     toggleChatbot();
                 }
             });
-            
-            // Speichere die E-Mail-Adresse im Chatbot in der hidden-Variable, falls bereits vorhanden
-            if (chatbotEmail) {
-                 document.getElementById('chatbot-reply-email').value = chatbotEmail;
-            }
         });
     </script>
 </body>
