@@ -222,7 +222,7 @@
                         <div class="p-6">
                             <h3 data-i18n="proj1_title" class="text-2xl font-semibold text-indigo-600 mb-2">Einführung eines neuen DMS</h3>
                             <p data-i18n="proj1_subtitle" class="text-sm text-gray-500 mb-4">Konzeption & Rollout</p>
-                            <p data-i18n="proj1_desc" class="text-gray-700 mb-6">Leitung der Migration von über 500.000 Dokumenten in ein neues DMS-System, inklusive Schulung von 200 Mitarbeitern.</p>
+                            <p data-i18n="proj1_desc" class="text-gray-700 mb-6">Leitung der Migration von über 500.000 Dokumenten in ein neues DMS-System, inklusive Schulung von Mitarbeitern.</p>
                             <a href="Einführung.html" class="flex items-center">
                                 <span data-i18n="proj_button">Projekterfolg ansehen</span>
                                 <i data-lucide="arrow-right" class="w-4 h-4 ml-1"></i>
@@ -386,12 +386,10 @@
         </button>
     </div>
     <script>
-        // Globale Variable zur Speicherung der vom Benutzer eingegebenen E-Mail (für den Chatbot)
-        // WIRD IN DIESEM FLOW NICHT MEHR BENÖTIGT UND IGNORIERT.
-        let chatbotEmail = '';
+        // Die Variable chatbotEmail ist in diesem Flow nicht mehr nötig.
         const storageKey = 'portfolioLang';
 
-        // 1. Übersetzungen (Aktualisiert für den Chatbot-Flow)
+        // 1. Übersetzungen (ANGESPASST)
         const translations = {
             'page_title': {
                 'de': 'NOGUEM NGNOTUE - Professionelles (Dokumentenmanagement)',
@@ -562,7 +560,7 @@
                 'en': 'Hello! 👋 I\'m Noguem, your document manager. I work for your DMS project. How can I help you today?',
                 'fr': 'Salut! 👋 Je suis Noguem, votre gestionnaire de documents. Je travaille pour votre projet GED. Comment puis-je vous aider aujourd\'hui?'
             },
-            // Diese E-Mail-Prompts sind jetzt redundant, bleiben aber für Konsistenz
+            // Diese E-Mail-Prompts sind jetzt redundant
             'chat_email_prompt': {
                 'de': 'Bevor wir starten, gib mir bitte deine E-Mail-Adresse. So kann ich dir antworten, selbst wenn ich gerade offline bin:',
                 'en': 'Before we start, please give me your email address. This way, I can reply even if I am offline:',
@@ -693,7 +691,7 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // --- HAUPT-CHATBOT-LOGIK (ANGESPASST) ---
+        // --- HAUPT-CHATBOT-LOGIK (AKTUALISIERT) ---
 
         function initializeChatbotMessage(lang) {
             const messagesContainer = document.getElementById('chat-messages');
@@ -721,8 +719,7 @@
         }
 
 
-        // Die Submit-Funktion wird so geändert, dass sie nach der ersten Benutzernachricht
-        // die technische Fehlermeldung ausgibt und den Chat deaktiviert.
+        // Die Submit-Funktion sendet die Nachricht jetzt an Formspree, bevor sie die statische Antwort anzeigt.
         async function handleChatbotSubmit(event) {
             event.preventDefault();
             
@@ -737,22 +734,50 @@
             // 1. Benutzernachricht sofort anzeigen
             displayUserMessage(message);
             
-            // 2. Eingabe während der "Antwort" sperren
-            input.value = ''; 
+            // 2. Eingabe während der "Antwort" sperren und Ladesymbol zeigen
             input.disabled = true;
             sendButton.disabled = true;
+            // Zeige den Spinner, um zu zeigen, dass etwas im Hintergrund passiert (Senden der E-Mail)
             sendButton.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
 
+            // --- NEU: Formspree-Submission ---
+            try {
+                const formData = new FormData(form);
+                
+                // Da das Input-Feld gleich geleert wird, müssen wir die Nachricht manuell setzen.
+                // Wir verwenden den Feldnamen "Nachricht", damit es in der E-Mail klar identifizierbar ist.
+                // Das Feld im HTML heißt "message", wir überschreiben es mit der eigentlichen Nachricht.
+                formData.set('Nachricht', message); 
+
+                await fetch(form.action, {
+                    method: form.method,
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                // Erfolg/Fehler des Formspree-Sendens wird ignoriert, da der Benutzer
+                // ohnehin die statische Fehlermeldung sehen soll.
+            } catch (error) {
+                // Fehler beim Senden ignorieren, da der Front-End-Flow wichtiger ist.
+            }
+            // --- ENDE Formspree-Submission ---
+            
+            // Leere das Eingabefeld, NACHDEM die Nachricht in der FormData gesichert wurde
+            input.value = ''; 
+
             // 3. Zeige die zweite, statische Nachricht an (technische Schwierigkeiten)
-            // Wir verwenden chat_thank_you, das wir mit dem neuen Text befüllt haben.
-            displayBotMessage(translations['chat_thank_you'][lang]);
+            const errorMsg = translations['chat_thank_you'][lang]; // Enthält bereits Kontaktdaten
+            displayBotMessage(errorMsg);
 
             // 4. Eingabefeld dauerhaft deaktivieren und Zustand wiederherstellen
-            input.placeholder = translations['chat_thank_you'][lang];
+            input.disabled = true; 
+            input.placeholder = errorMsg; // Setze den Platzhalter auf die Fehlermeldung
+            sendButton.disabled = true;
             sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`; 
             lucide.createIcons();
 
-            // Beenden, ohne Formspree zu senden
             return false;
         }
 
@@ -853,11 +878,6 @@
                     toggleChatbot();
                 }
             });
-            
-            // Speichere die E-Mail-Adresse im Chatbot in der hidden-Variable, falls bereits vorhanden
-            if (chatbotEmail) {
-                 document.getElementById('chatbot-reply-email').value = chatbotEmail;
-            }
         });
     </script>
 </body>
