@@ -4,15 +4,7 @@
     <meta charset="UTF-8">
 	<meta name="google-site-verification" content="0v5Lu7kkzcf2LllHv_ndaaFnt5cTE8ImzhZ7FCfKQMQ" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--	<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2TZ5CLM59"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-Y2TZ5CLM59');
-    </script>-->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1409565"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MBG1409565"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -154,12 +146,7 @@
                     
                     <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-8">
                         
-                    <!--    <a href="https://wa.me/004917624087977" target="_blank" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-green-500 hover:bg-green-600 shadow-lg transition duration-300 transform hover:scale-105">
-                            <i data-lucide="message-square" class="w-5 h-5 mr-2"></i>
-                            <span data-i18n="btn_whatsapp">WhatsApp</span>
-                        </a> -->
-
-                        <a href="mailto:ngnotue.noguem@outlook.de" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-red-500 hover:bg-red-600 shadow-lg transition duration-300 transform hover:scale-105">
+                    <a href="mailto:ngnotue.noguem@outlook.de" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-red-500 hover:bg-red-600 shadow-lg transition duration-300 transform hover:scale-105">
                             <i data-lucide="mail" class="w-5 h-5 mr-2"></i>
                             <span data-i18n="btn_email">Email</span>
                         </a>
@@ -564,29 +551,37 @@
             'en': 'Your message...', 
             'fr': 'Votre message...' 
         },
-        // 1. Nachricht des Bots
+        // 1. Nachricht des Bots (Wird bei jedem Öffnen neu initialisiert)
         'chat_initial_message': {
-            'de': 'Hallo! 👋 Ich bin Noguem, Ihre Dokumentenmanagerin. Ich arbeite an Ihrem DMS-Projekt. Wie kann ich Ihnen heute helfen?',
-            'en': 'Hello! 👋 I\'m Noguem, your document manager. I work for your DMS project. How can I help you today?',
-            'fr': 'Salut! 👋 Je suis Noguem, votre gestionnaire de documents. Je travaille pour votre projet GED. Comment puis-je vous aider aujourd\'hui?'
+            'de': 'Hallo! 👋 Ich bin Ihr virtueller DMS-Assistent. Wie kann ich Ihnen heute bei Fragen zu Dokumentenmanagement, Compliance oder meinen Referenzen helfen?',
+            'en': 'Hello! 👋 I\'m your virtual DMS assistant. How can I assist you today with questions about document management, compliance, or my references?',
+            'fr': 'Salut! 👋 Je suis votre assistant GED virtuel. Comment puis-je vous aider aujourd\'hui avec des questions sur la gestion documentaire, la conformité ou mes références?'
         },
-        // 2. Nachricht des Bots (technische Schwierigkeiten)
-        'chat_thank_you': {
-            'de': 'Ich bitte um Entschuldigung, aber ich habe momentan technische Schwierigkeiten. Sie können mich gerne direkt unter ngnotue.noguem@outlook.de oder per WhatsApp unter +4917624087977 kontaktieren.',
-            'en': 'I apologize, but I am currently experiencing technical difficulties. You can contact me directly at ngnotue.noguem@outlook.de or via WhatsApp at +4917624087977.',
-            'fr': 'Je m\'excuse, mais je rencontre actuellement des difficultés techniques. Vous pouvez me contacter directement à ngnotue.noguem@outlook.de ou via WhatsApp au +4917624087977.'
-        },
-        // NEU: Placeholder, wenn der Chat deaktiviert ist
-        'chat_disabled_placeholder': { 
-            'de': 'Der Chat ist beendet. Bitte kontaktieren Sie mich direkt.', 
-            'en': 'The chat is finished. Please contact me directly.', 
-            'fr': 'Le chat est terminé. Veuillez me contacter directement.' 
-        },
+        // 2. Antwort bei KI-Fehler (wird nur verwendet, falls die Simulation fehlschlägt)
         'chat_error': {
             'de': 'Beim Senden ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.',
             'en': 'An error occurred while sending. Please try again later.',
             'fr': 'Une erreur s\'est produite lors de l\'envoi. Veuillez réessayer plus tard.'
         },
+        // NEU: Platzhalter, wenn der Chat deaktiviert ist (nach einer längeren Konversation)
+        'chat_disabled_placeholder': { 
+            'de': 'Der Chat ist beendet. Bitte kontaktieren Sie mich direkt.', 
+            'en': 'The chat is finished. Please contact me directly.', 
+            'fr': 'Le chat est terminé. Veuillez me contacter directement.' 
+        },
+        // NEU: SIMULIERTE KI-ANTWORTEN (MUSS ERSETZT WERDEN)
+        'ai_response_placeholder': {
+            'de': 'Vielen Dank für Ihre Anfrage. Ich verarbeite Ihre Frage gerade und suche nach den relevanten Informationen zu Dokumentenmanagement. Bitte haben Sie einen Moment Geduld...',
+            'en': 'Thank you for your request. I am currently processing your question and searching for relevant information on document management. Please be patient for a moment...',
+            'fr': 'Merci pour votre demande. Je suis en train de traiter votre question et de rechercher les informations pertinentes sur la gestion documentaire. Veuillez patienter un instant...'
+        },
+        'ai_final_contact': {
+            'de': 'Um Ihnen eine maßgeschneiderte Antwort geben zu können, bitte ich Sie um eine direkte Kontaktaufnahme. Hier sind meine Kontaktdaten: **E-Mail:** ngnotue.noguem@outlook.de. Oder buchen Sie direkt einen Termin über meinen **Schedule-Link**.',
+            'en': 'To provide you with a tailored answer, I kindly ask you to contact me directly. Here are my contact details: **Email:** ngnotue.noguem@outlook.de. Or book an appointment directly via my **Schedule link**.',
+            'fr': 'Afin de vous fournir une réponse personnalisée, je vous prie de me contacter directement. Voici mes coordonnées : **E-mail:** ngnotue.noguem@outlook.de. Ou réservez un rendez-vous directement via mon **lien Schedule**.',
+        },
+
+
         'form_thank_you': {
             'de': 'Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet. Ich werde mich in Kürze bei Ihnen melden.',
             'en': 'Thank you! Your message has been sent successfully. I will get back to you shortly.',
@@ -676,6 +671,7 @@
         `;
         messagesContainer.appendChild(messageElement);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        return messageElement.querySelector('div'); // Gibt das innere Div-Element zurück
     }
 
     function displayUserMessage(text) {
@@ -691,7 +687,12 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // --- HAUPT-CHATBOT-LOGIK (AKTUALISIERT FÜR ROBUSTHEIT) ---
+    // --- HAUPT-CHATBOT-LOGIK (INTELLIGENT-SIMULATION) ---
+    
+    // Globale Variable, um den Konversationszähler zu speichern
+    let conversationCount = 0; 
+    const MAX_FREE_MESSAGES = 3; // Nach 3 Antworten wird zur Kontaktaufnahme aufgefordert
+    
 
     function initializeChatbotMessage(lang) {
         const messagesContainer = document.getElementById('chat-messages');
@@ -699,27 +700,26 @@
         const chatInput = document.getElementById('chat-input');
         const sendButton = chatForm.querySelector('button[type="submit"]');
 
-        messagesContainer.innerHTML = ''; // <-- Wichtig: Alle alten Nachrichten löschen!
-        chatInput.disabled = false;
-        sendButton.disabled = false;
+        messagesContainer.innerHTML = ''; // Wichtig: Alle alten Nachrichten löschen!
+        conversationCount = 0; // Zähler bei jedem Öffnen zurücksetzen
         
-        // Konfiguriere das Formular direkt für die Nachrichteneingabe (Text)
+        chatInput.disabled = false;
+        chatInput.value = '';
         chatInput.type = 'text'; 
         chatInput.placeholder = translations['chat_input_placeholder'][lang];
         
-        // Setze den korrekten Submit-Handler für die Einzelnachricht
+        sendButton.disabled = false;
+        sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`;
+        
         chatForm.onsubmit = (e) => handleChatbotSubmit(e);
         
         // 1. Willkommensnachricht anzeigen
         displayBotMessage(translations['chat_initial_message'][lang]);
-        
-        // Setze den korrekten Send-Button-Text/Icon
-        sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`;
         lucide.createIcons();
     }
 
 
-    // Die Submit-Funktion sendet die Nachricht an Formspree und zeigt dann die statische Antwort an.
+    // Die Submit-Funktion simuliert die KI-Kommunikation
     async function handleChatbotSubmit(event) {
         event.preventDefault();
         
@@ -730,6 +730,8 @@
         const lang = localStorage.getItem(storageKey) || 'de';
         
         if (message === '') return false;
+        
+        conversationCount++; // Zähle die Konversation hoch
 
         // 1. Benutzernachricht sofort anzeigen
         displayUserMessage(message);
@@ -739,39 +741,59 @@
         input.value = ''; 
         input.disabled = true;
         sendButton.disabled = true;
-        // Zeige den Spinner
-        sendButton.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
 
-        // --- NEU: Formspree-Submission (im Hintergrund) ---
-        try {
-            const formData = new FormData(form);
-            // Nutze die gesicherte Nachricht
-            formData.set('Nachricht', originalMessage); 
+        // Erstelle eine temporäre Nachricht mit Spinner (Simulation des KI-Ladevorgangs)
+        const loadingMessageEl = displayBotMessage(`
+            <svg class="animate-spin h-5 w-5 text-indigo-500 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            ${translations['ai_response_placeholder'][lang]}
+        `);
+        // Scrolle zur Lade-Nachricht
+        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
 
-            await fetch(form.action, {
-                method: form.method,
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
 
-            // Erfolg/Fehler wird für den Front-End-Chat ignoriert, da die statische Antwort erfolgt.
-        } catch (error) {
-            // Fehler beim Senden ignorieren.
-        }
-        // --- ENDE Formspree-Submission ---
+        // --- ECHTER KI-API-AUFRUF ODER SIMULATION ---
         
-        // 3. Zeige die zweite, statische Nachricht an (technische Schwierigkeiten)
-        const errorMsg = translations['chat_thank_you'][lang]; // Enthält Kontaktdaten
-        displayBotMessage(errorMsg);
+        let aiResponse = translations['ai_final_contact'][lang];
+        let stopChat = false;
 
-        // 4. Eingabefeld dauerhaft deaktivieren und Zustand wiederherstellen
-        input.disabled = true; 
-        input.placeholder = translations['chat_disabled_placeholder'][lang]; // Setze den korrekten Disabled-Platzhalter
-        sendButton.disabled = true;
-        sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`; 
-        lucide.createIcons();
+        // Wenn der Zähler die Grenze erreicht hat, stoppen wir den Chat
+        if (conversationCount >= MAX_FREE_MESSAGES) {
+            stopChat = true;
+            aiResponse = translations['ai_final_contact'][lang];
+        } else {
+            // *** HIER MUSS IHR ECHTER KI-API-AUFRUF HIN ***
+            // Beispiel: await fetch('YOUR_AI_ENDPOINT', { method: 'POST', body: JSON.stringify({ prompt: originalMessage }) });
+            // Ersetzen Sie die folgende Zeile durch Ihren API-Call, der die tatsächliche Antwort liefert:
+            
+            // SIMULATION: Warte 2 Sekunden und gib eine einfache Platzhalter-Antwort
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            // SIMULATION: Hier würden Sie die Antwort der KI verwenden.
+            // Da ich keine echte KI hier einbauen kann, verwenden wir eine statische Antwort.
+            // Besser wäre eine KI-Antwort, die auf dem Prompt (originalMessage) basiert.
+            // Beispiel einer einfachen statischen Antwort (bitte durch dynamische Antwort ersetzen):
+            aiResponse = `Das ist eine hervorragende Frage zum Thema Dokumentenmanagement! Ich sehe, Sie interessieren sich für meine Kernkompetenzen. Ich kann Ihnen bestätigen, dass ich Erfahrung mit der **Einhaltung von GoBD** und der **revisionssicheren Langzeitarchivierung** habe. Was genau möchten Sie als Nächstes zu diesem Thema wissen?`;
+        }
+        
+        // 3. Temporäre Lade-Nachricht entfernen und KI-Antwort anzeigen
+        loadingMessageEl.parentNode.removeChild(loadingMessageEl);
+        displayBotMessage(aiResponse);
+        
+        
+        // 4. Zustand wiederherstellen oder dauerhaft deaktivieren
+        if (stopChat) {
+            input.disabled = true; 
+            input.placeholder = translations['chat_disabled_placeholder'][lang];
+            sendButton.disabled = true;
+            // Keine Nachrichtenspeicherung im Hintergrund, da Kontaktlink angezeigt wird.
+        } else {
+            input.disabled = false;
+            sendButton.disabled = false;
+            sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`; 
+            lucide.createIcons();
+            // Hier könnte man optional die Nachricht an Formspree senden, aber das wird weggelassen, 
+            // um den Chat sauber zu halten.
+        }
 
         return false;
     }
