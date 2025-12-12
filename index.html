@@ -361,7 +361,7 @@
             <div id="chat-messages" class="p-4 h-64 overflow-y-auto space-y-4 bg-gray-50">
                 </div>
             
-            <form id="chatbot-form" action="https://formspree.io/f/xrbnlogq" method="POST" onsubmit="return handleChatbotSubmit(event)">
+            <form id="chatbot-form" action="https://api.web3forms.com/submit" method="POST" onsubmit="return handleChatbotSubmit(event)">
                 <div class="p-3 border-t border-gray-200 flex items-center">
                     <input type="text" id="chat-input" name="message" data-i18n="chat_input_placeholder" placeholder="Ihre Nachricht..." required 
                            class="w-full px-3 py-2 border rounded-l-lg focus:ring-indigo-500 focus:border-indigo-500 focus:outline-none" 
@@ -370,7 +370,8 @@
                         <i data-lucide="send" class="w-5 h-5"></i>
                     </button>
                 </div>
-                <input type="hidden" name="_subject" value="Neue Chatbot-Nachricht von NOGUEM NGNOTUE Webseite">
+                <input type="hidden" name="access_key" value="d43f47fe-e079-4dc4-9b4c-1f51b6436b2c">
+                <input type="hidden" name="_subject" value="Neue Nachricht über den NOGUEM NGNOTUE Chatbot">
                 <input type="hidden" name="_replyto" id="chatbot-reply-email">
             </form>
             </div>
@@ -551,37 +552,29 @@
             'en': 'Your message...', 
             'fr': 'Votre message...' 
         },
-        // 1. Nachricht des Bots (Wird bei jedem Öffnen neu initialisiert)
+        // 1. Nachricht des Bots
         'chat_initial_message': {
-            'de': 'Hallo! 👋 Ich bin Ihr virtueller DMS-Assistent. Wie kann ich Ihnen heute bei Fragen zu Dokumentenmanagement, Compliance oder meinen Referenzen helfen?',
-            'en': 'Hello! 👋 I\'m your virtual DMS assistant. How can I assist you today with questions about document management, compliance, or my references?',
-            'fr': 'Salut! 👋 Je suis votre assistant GED virtuel. Comment puis-je vous aider aujourd\'hui avec des questions sur la gestion documentaire, la conformité ou mes références?'
+            'de': 'Hallo! 👋 Ich bin Noguem, Ihre Dokumentenmanagerin. Ich arbeite an Ihrem DMS-Projekt. Wie kann ich Ihnen heute helfen?',
+            'en': 'Hello! 👋 I\'m Noguem, your document manager. I work for your DMS project. How can I help you today?',
+            'fr': 'Salut! 👋 Je suis Noguem, votre gestionnaire de documents. Je travaille pour votre projet GED. Comment puis-je vous aider aujourd\'hui?'
         },
-        // 2. Antwort bei KI-Fehler (wird nur verwendet, falls die Simulation fehlschlägt)
-        'chat_error': {
-            'de': 'Beim Senden ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.',
-            'en': 'An error occurred while sending. Please try again later.',
-            'fr': 'Une erreur s\'est produite lors de l\'envoi. Veuillez réessayer plus tard.'
+        // 2. Nachricht des Bots (technische Schwierigkeiten)
+        'chat_thank_you': {
+            'de': 'Ich bitte um Entschuldigung, aber ich kann hier leider nur Fragen zu meinen Kompetenzen beantworten. Für eine individuelle Beratung oder bei technischen Schwierigkeiten können Sie mich gerne direkt unter ngnotue.noguem@outlook.de oder per WhatsApp unter +4917624087977 kontaktieren.',
+            'en': 'I apologize, but I am currently experiencing technical difficulties. You can contact me directly at ngnotue.noguem@outlook.de or via WhatsApp at +4917624087977.',
+            'fr': 'Je m\'excuse, mais je rencontre actuellement des difficultés techniques. Vous pouvez me contacter directement à ngnotue.noguem@outlook.de ou via WhatsApp au +4917624087977.'
         },
-        // NEU: Platzhalter, wenn der Chat deaktiviert ist (nach einer längeren Konversation)
+        // NEU: Placeholder, wenn der Chat deaktiviert ist
         'chat_disabled_placeholder': { 
             'de': 'Der Chat ist beendet. Bitte kontaktieren Sie mich direkt.', 
             'en': 'The chat is finished. Please contact me directly.', 
             'fr': 'Le chat est terminé. Veuillez me contacter directement.' 
         },
-        // NEU: SIMULIERTE KI-ANTWORTEN (MUSS ERSETZT WERDEN)
-        'ai_response_placeholder': {
-            'de': 'Vielen Dank für Ihre Anfrage. Ich verarbeite Ihre Frage gerade und suche nach den relevanten Informationen zu Dokumentenmanagement. Bitte haben Sie einen Moment Geduld...',
-            'en': 'Thank you for your request. I am currently processing your question and searching for relevant information on document management. Please be patient for a moment...',
-            'fr': 'Merci pour votre demande. Je suis en train de traiter votre question et de rechercher les informations pertinentes sur la gestion documentaire. Veuillez patienter un instant...'
+        'chat_error': {
+            'de': 'Beim Senden ist ein Fehler aufgetreten. Bitte versuche es später noch einmal.',
+            'en': 'An error occurred while sending. Please try again later.',
+            'fr': 'Une erreur s\'est produite lors de l\'envoi. Veuillez réessayer plus tard.'
         },
-        'ai_final_contact': {
-            'de': 'Um Ihnen eine maßgeschneiderte Antwort geben zu können, bitte ich Sie um eine direkte Kontaktaufnahme. Hier sind meine Kontaktdaten: **E-Mail:** ngnotue.noguem@outlook.de. Oder buchen Sie direkt einen Termin über meinen **Schedule-Link**.',
-            'en': 'To provide you with a tailored answer, I kindly ask you to contact me directly. Here are my contact details: **Email:** ngnotue.noguem@outlook.de. Or book an appointment directly via my **Schedule link**.',
-            'fr': 'Afin de vous fournir une réponse personnalisée, je vous prie de me contacter directement. Voici mes coordonnées : **E-mail:** ngnotue.noguem@outlook.de. Ou réservez un rendez-vous directement via mon **lien Schedule**.',
-        },
-
-
         'form_thank_you': {
             'de': 'Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet. Ich werde mich in Kürze bei Ihnen melden.',
             'en': 'Thank you! Your message has been sent successfully. I will get back to you shortly.',
@@ -671,7 +664,6 @@
         `;
         messagesContainer.appendChild(messageElement);
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        return messageElement.querySelector('div'); // Gibt das innere Div-Element zurück
     }
 
     function displayUserMessage(text) {
@@ -687,12 +679,7 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    // --- HAUPT-CHATBOT-LOGIK (INTELLIGENT-SIMULATION) ---
-    
-    // Globale Variable, um den Konversationszähler zu speichern
-    let conversationCount = 0; 
-    const MAX_FREE_MESSAGES = 3; // Nach 3 Antworten wird zur Kontaktaufnahme aufgefordert
-    
+    // --- HAUPT-CHATBOT-LOGIK (AKTUALISIERT FÜR ROBUSTHEIT) ---
 
     function initializeChatbotMessage(lang) {
         const messagesContainer = document.getElementById('chat-messages');
@@ -700,100 +687,100 @@
         const chatInput = document.getElementById('chat-input');
         const sendButton = chatForm.querySelector('button[type="submit"]');
 
-        messagesContainer.innerHTML = ''; // Wichtig: Alle alten Nachrichten löschen!
-        conversationCount = 0; // Zähler bei jedem Öffnen zurücksetzen
-        
+        messagesContainer.innerHTML = ''; // <-- Wichtig: Alle alten Nachrichten löschen!
         chatInput.disabled = false;
-        chatInput.value = '';
+        sendButton.disabled = false;
+        
+        // Konfiguriere das Formular direkt für die Nachrichteneingabe (Text)
         chatInput.type = 'text'; 
         chatInput.placeholder = translations['chat_input_placeholder'][lang];
         
-        sendButton.disabled = false;
-        sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`;
-        
+        // Setze den korrekten Submit-Handler für die Einzelnachricht
         chatForm.onsubmit = (e) => handleChatbotSubmit(e);
         
         // 1. Willkommensnachricht anzeigen
         displayBotMessage(translations['chat_initial_message'][lang]);
+        
+        // Setze den korrekten Send-Button-Text/Icon
+        sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`;
         lucide.createIcons();
     }
 
 
-    // Die Submit-Funktion simuliert die KI-Kommunikation
+    // Die Submit-Funktion sendet die Nachricht an Formspree und zeigt dann die statische Antwort an.
     async function handleChatbotSubmit(event) {
         event.preventDefault();
-        
         const form = event.target;
         const input = document.getElementById('chat-input');
         const sendButton = form.querySelector('button[type="submit"]');
         const message = input.value.trim();
         const lang = localStorage.getItem(storageKey) || 'de';
-        
+
         if (message === '') return false;
-        
-        conversationCount++; // Zähle die Konversation hoch
 
         // 1. Benutzernachricht sofort anzeigen
         displayUserMessage(message);
-        
+
         // 2. Eingabe während der "Antwort" sperren und Ladesymbol zeigen
-        const originalMessage = message;
-        input.value = ''; 
+        const originalMessage = message; // Nachricht für Formspree speichern
+        input.value = '';
         input.disabled = true;
         sendButton.disabled = true;
 
-        // Erstelle eine temporäre Nachricht mit Spinner (Simulation des KI-Ladevorgangs)
-        const loadingMessageEl = displayBotMessage(`
-            <svg class="animate-spin h-5 w-5 text-indigo-500 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            ${translations['ai_response_placeholder'][lang]}
-        `);
-        // Scrolle zur Lade-Nachricht
-        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+        // Zeige den Spinner
+        sendButton.innerHTML = `<svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>`;
+        lucide.createIcons();
 
+        // --- NEUE LOGIK FÜR KOMPETENZ-ABFRAGEN ---
+        const normalizedMessage = message.toLowerCase();
+        let botResponse = translations['chat_thank_you'][lang]; // Standard-Fallback (technische Schwierigkeiten)
 
-        // --- ECHTER KI-API-AUFRUF ODER SIMULATION ---
-        
-        let aiResponse = translations['ai_final_contact'][lang];
-        let stopChat = false;
-
-        // Wenn der Zähler die Grenze erreicht hat, stoppen wir den Chat
-        if (conversationCount >= MAX_FREE_MESSAGES) {
-            stopChat = true;
-            aiResponse = translations['ai_final_contact'][lang];
-        } else {
-            // *** HIER MUSS IHR ECHTER KI-API-AUFRUF HIN ***
-            // Beispiel: await fetch('YOUR_AI_ENDPOINT', { method: 'POST', body: JSON.stringify({ prompt: originalMessage }) });
-            // Ersetzen Sie die folgende Zeile durch Ihren API-Call, der die tatsächliche Antwort liefert:
-            
-            // SIMULATION: Warte 2 Sekunden und gib eine einfache Platzhalter-Antwort
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // SIMULATION: Hier würden Sie die Antwort der KI verwenden.
-            // Da ich keine echte KI hier einbauen kann, verwenden wir eine statische Antwort.
-            // Besser wäre eine KI-Antwort, die auf dem Prompt (originalMessage) basiert.
-            // Beispiel einer einfachen statischen Antwort (bitte durch dynamische Antwort ersetzen):
-            aiResponse = `Das ist eine hervorragende Frage zum Thema Dokumentenmanagement! Ich sehe, Sie interessieren sich für meine Kernkompetenzen. Ich kann Ihnen bestätigen, dass ich Erfahrung mit der **Einhaltung von GoBD** und der **revisionssicheren Langzeitarchivierung** habe. Was genau möchten Sie als Nächstes zu diesem Thema wissen?`;
+        // Fragen-Antwort-Paare basierend auf den Kompetenzen (DEUTSCH)
+        // Für EN und FR müssten hier separate Übersetzungen implementiert werden.
+        if (lang === 'de') {
+            if (normalizedMessage.includes('dms') || normalizedMessage.includes('systeme') || normalizedMessage.includes('elo') || normalizedMessage.includes('sharepoint')) {
+                botResponse = 'Ich habe Erfahrung in der Konzeption, Einführung und Administration gängiger DMS-Lösungen wie **SharePoint, OpenText, ELO und d.velop**. Mein Fokus liegt auf der Systemauswahl, die optimal zu Ihren Geschäftsprozessen passt.';
+            } else if (normalizedMessage.includes('compliance') || normalizedMessage.includes('gobd') || normalizedMessage.includes('dsgvo')) {
+                botResponse = 'Meine Expertise umfasst die Einhaltung aller relevanten Vorschriften, einschließlich **GoBD, DSGVO und branchenspezifischer Archivierungsvorschriften** (wie GDPdU). Ich sorge für revisionssichere Prozesse.';
+            } else if (normalizedMessage.includes('archivierung') || normalizedMessage.includes('aufbewahrungsfristen') || normalizedMessage.includes('revisionssicher')) {
+                botResponse = 'Der wichtigste Aspekt ist die **revisionssichere Langzeitarchivierung**. Dazu gehört die Definition präziser **Aufbewahrungsfristen (Retention Policies)** und die Gewährleistung der Unveränderbarkeit der Dokumente.';
+            } else if (normalizedMessage.includes('metadaten') || normalizedMessage.includes('klassifizierung') || normalizedMessage.includes('suche')) {
+                botResponse = 'Metadaten und Taxonomien sind entscheidend für die **effiziente Ablage und schnelle Suche** von Dokumenten. Ich entwickle maßgeschneiderte Metadatenmodelle, um Ihre Dokumente automatisch und präzise zu klassifizieren.';
+            }
         }
         
-        // 3. Temporäre Lade-Nachricht entfernen und KI-Antwort anzeigen
-        loadingMessageEl.parentNode.removeChild(loadingMessageEl);
-        displayBotMessage(aiResponse);
-        
-        
-        // 4. Zustand wiederherstellen oder dauerhaft deaktivieren
-        if (stopChat) {
-            input.disabled = true; 
-            input.placeholder = translations['chat_disabled_placeholder'][lang];
-            sendButton.disabled = true;
-            // Keine Nachrichtenspeicherung im Hintergrund, da Kontaktlink angezeigt wird.
-        } else {
-            input.disabled = false;
-            sendButton.disabled = false;
-            sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`; 
-            lucide.createIcons();
-            // Hier könnte man optional die Nachricht an Formspree senden, aber das wird weggelassen, 
-            // um den Chat sauber zu halten.
+        // --- Formspree-Submission (im Hintergrund) ---
+        try {
+            const formData = new FormData(form);
+            // Nutze die gesicherte Nachricht
+            formData.set('Nachricht', originalMessage); 
+
+            await fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            // Erfolg/Fehler wird für den Front-End-Chat ignoriert, da die statische Antwort erfolgt.
+        } catch (error) {
+            // Fehler beim Senden ignorieren.
         }
+        // --- ENDE Formspree-Submission ---
+
+        // Kurze Wartezeit simulieren (für ein realistischeres Chat-Gefühl)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Bot-Antwort anzeigen
+        displayBotMessage(botResponse);
+
+        // 4. Eingabefeld dauerhaft deaktivieren und Zustand wiederherstellen
+        input.disabled = true; 
+        input.placeholder = translations['chat_disabled_placeholder'][lang]; // Setze den korrekten Disabled-Platzhalter
+        sendButton.disabled = true;
+        sendButton.innerHTML = `<i data-lucide="send" class="w-5 h-5"></i>`; 
+        lucide.createIcons();
 
         return false;
     }
